@@ -1,2 +1,4 @@
 [keys]
 secret=secret
+email=password
+database=password
