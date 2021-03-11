@@ -24,9 +24,9 @@ PROD = 'prod'
 DEV = 'dev'
 LOCAL = 'local'
 
-if socket.gethostname().startswith('prodHost'):
+if socket.gethostname().startswith('prodHost'):  # pragma: no cover
     DJANGO_HOST = PROD
-elif socket.gethostname().startswith('stageHost'):
+elif socket.gethostname().startswith('stageHost'):  # pragma: no cover
     DJANGO_HOST = DEV
 else:
     DJANGO_HOST = LOCAL
@@ -44,7 +44,7 @@ config.read(os.path.join(BASE_DIR, 'jack/config.ini'))
 SECRET_KEY = config.get('keys', 'secret')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if PROD == DJANGO_HOST:
+if PROD == DJANGO_HOST:  # pragma: no cover
   DEBUG = False
   SECURE_HSTS_SECONDS = 60
   SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -110,7 +110,7 @@ if LOCAL == DJANGO_HOST:
             'NAME': os.path.join(BASE_DIR, 'data/db.sqlite3'),
         }
     }
-else:
+else:  # pragma: no cover
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -125,7 +125,7 @@ else:
 # Authentication
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
-LOGIN_REDIRECT_URL = reverse_lazy('index')
+# LOGIN_REDIRECT_URL = reverse_lazy('index')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -235,7 +235,7 @@ LOGGING = {
 
 if DJANGO_HOST == LOCAL:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
+else:  # pragma: no cover
     EMAIL_BACKEND = 'mailer.backend.DbBackend'
 
 EMAIL_HOST = 'mx.email.com'
@@ -247,14 +247,14 @@ DEFAULT_FROM_EMAIL = 'django-jack@email.com'
 SERVER_EMAIL = 'jack-admin@email.com'
 
 # Filesystem path to the directory that will hold user generated files
-# media delivery will be authenticated and delivered via the restricted_media URL
+# media will be authenticated and delivered via the restricted_media URL
 # MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'html/media')
 
 # Authentication
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'account.authentication.EmailAuthBackend',
+    # 'account.authentication.EmailAuthBackend',
 )
 
 # Messages
