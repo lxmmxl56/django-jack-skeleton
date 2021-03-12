@@ -1,0 +1,9 @@
+{% extends "account.base.html" %}
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <p>You have been successfully logged out.  You can <a href="{% url "login" %}">sign in again</a>.</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% load static humanize %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %}</title>
+  {% block head %}
+  {% endblock %}
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <link rel="stylesheet" href="{% static 'css/lib/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block styles %}
+  {% endblock %}
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container">
+      {% block navbar-brand %}
+      {% endblock %}
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#myTabbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="myTabbar">
+        <ul class="navbar-nav me-auto">
+          {% block left-nav-links %}
+          {% endblock %}
+          {% if request.user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link{% if section == 'admin' %} active{% endif %}" href="{% url 'admin:index' %}">
+              <svg class="icon icon-logo logo-color" aria-hidden="true" focusable="false">
+                <use xlink:href="/static/img/sprite/icons-jack.svg#cog"></use>
+              </svg>
+              Admin
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          {% block right-nav-links %}
+          {% endblock %}
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <svg class="icon icon-logo logo-color" aria-hidden="true" focusable="false">
+                <use xlink:href="/static/img/sprite/icons-account.svg#sign-out"></use>
+              </svg>
+              Sign out
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">
+              <svg class="icon icon-logo logo-color" aria-hidden="true" focusable="false">
+                <use xlink:href="/static/img/sprite/icons-account.svg#sign-up"></use>
+              </svg>
+              Sign up
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">
+              <svg class="icon icon-logo logo-color" aria-hidden="true" focusable="false">
+                <use xlink:href="/static/img/sprite/icons-account.svg#sign-in"></use>
+              </svg>
+              Sign in
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div> <!-- .container -->
+  </nav>
+  <div class="container-fluid content mt-3">
+    <div id="alertBox" class="alerts mt-3">
+      {% for alert in alerts %}
+      <div class="alert alert-{{ alert.tag }} alert-dismissible fade show" role="alert">
+        {{ alert.message|safe }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+    </div>
+    <div id="mainContent" class="main-content mb-3">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <div class="toast-container position-absolute me-3 mb-3 end-0 bottom-0">
+      {% for toast in toasts %}
+      <div class="toast{% if toast.classes %} {{ toast.classes }}{% endif %}" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          {% if toast.image_src %}
+          <img src="{{ toast.image_src }}" class="rounded me-2">
+          {% endif %}
+          {% if toast.title %}
+          <strong class="me-auto">{{ toast.title }}</strong>
+          {% endif %}
+          {% if toast.time %}
+          <small class="text-muted">{{ toast.time|naturaltime }}</small>
+          {% endif %}
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        {% if toast.body %}
+        <div class="toast-body">
+          {{ toast.body }}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <script src="{% static 'js/lib/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/base.js' %}"></script>
+  {% block scripts %}
+  {% endblock %}
+</script>

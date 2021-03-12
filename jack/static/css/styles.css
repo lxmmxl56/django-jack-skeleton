@@ -1,0 +1,46 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-top: 76px; /* padding top for nav height */
+}
+
+.icon {
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  vertical-align: text-bottom;
+  overflow: hidden;
+}
+
+.btn .icon {
+  width: 18px;
+  height: auto;
+  max-height: 18px;
+}
+
+.navbar-brand .icon {
+  font-size: 40px;
+}
+
+.main-content {
+  opacity: 0;
+  transition: 0.24s ease-in;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.tooltip ul {
+  margin: 0;
+  padding-inline-start: 20px;
+  text-align: left;
+}
+
+.tooltip ul li {
+  margin-bottom: .25rem;
+}

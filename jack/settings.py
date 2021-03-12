@@ -62,11 +62,13 @@ ADMINS = (
 
 # Application definition
 INSTALLED_APPS = [
+    'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.humanize',
     'django.contrib.messages',
+    'django.contrib.sessions',
     'django.contrib.staticfiles',
     'mailer',
     'widget_tweaks',
@@ -125,7 +127,7 @@ else:  # pragma: no cover
 # Authentication
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
-# LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGIN_REDIRECT_URL = reverse_lazy('index')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -254,7 +256,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'html/media')
 # Authentication
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    # 'account.authentication.EmailAuthBackend',
+    'account.authentication.EmailAuthBackend',
 )
 
 # Messages

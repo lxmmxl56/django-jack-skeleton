@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navbar-brand %}
+<a class="navbar-brand" href="{% url 'profile' %}">
+    <svg class="icon" aria-hidden="true" focusable="false">
+        <use xlink:href="/static/img/sprite/icons-account.svg#user"></use>
+    </svg>
+    Account
+</a>
+{% endblock %}
+
+{% block right-nav-links %}
+<li class="nav-item">
+    <a class="nav-link me-3" href="{% url 'index' %}">
+        💀
+        Home
+    </a>
+</li>
+{% endblock %}

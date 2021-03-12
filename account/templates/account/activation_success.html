@@ -1,0 +1,11 @@
+{% extends "account.base.html" %}
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+            <div class="row">
+                <div class="col-sm">Activation successful.  Please <a href="{% url 'login' %}">login</a>.
+                </div>
+            </div>
+    </div>
+{% endblock %}

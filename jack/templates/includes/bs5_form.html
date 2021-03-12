@@ -1,0 +1,70 @@
+{% load widget_tweaks %}
+
+{% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+{% endfor %}
+
+{% if form.non_field_errors %}
+    <div class="alert alert-danger mt-3" role="alert">
+        {% for error in form.non_field_errors %}
+            {{ error|safe }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% for field in form.visible_fields %}
+    <div class="row">
+        <div class="form-group col-auto mb-2">
+            {% if field.help_text %}
+                <span class="badge rounded-pill bg-light text-dark border cursor-pointer mb-1" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" title="{{ field.help_text|safe }}">?</span>
+            {% endif %}
+            {% if field.field.widget.input_type == 'select' %}
+                {{ field.label_tag|safe }}
+                <div class="row no-gutters">
+                    {% if field.field.widget.search %}
+                    <div class="col-auto mr-1">
+                        <input id="{{ field.name }}Search" type="text" class="form-control form-control-sm no-validate" placeholder="{{ 'Search' }}">
+                    </div>
+                    {% endif %}
+                    <div class="col-sm col-auto">
+                    {% if form.is_bound %}
+                        {% if field.errors %}
+                            {% render_field field class+="custom-select custom-select-sm is-invalid" %}
+                            {% for error in field.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error|safe }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% render_field field class+="custom-select custom-select-sm" %}
+                        {% endif %}
+                    {% else %}
+                        {% render_field field class+="custom-select custom-select-sm" %}
+                    {% endif %}
+                    </div>
+                </div>
+            {% elif field.field.widget.input_type == 'checkbox' %}
+            <div class="custom-control custom-switch">
+                {% render_field field class+="custom-control-input no-validate" %}
+                <label class="custom-control-label no-validate" for="{{ field.auto_id }}">{{ field.label|safe }}</label>
+            </div>
+            {% else %}
+                {{ field.label_tag|safe }}
+                {% if form.is_bound %}
+                    {% if field.errors %}
+                        {% render_field field class+="form-control form-control-sm is-invalid" %}
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                                {{ error|safe }}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        {% render_field field class+="form-control form-control-sm" %}
+                    {% endif %}
+                {% else %}
+                    {% render_field field class+="form-control form-control-sm" %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}

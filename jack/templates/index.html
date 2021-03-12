@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Jack
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block scripts %}
+<script type="module" src="{% static 'js/index.js' %}"></script>
+{% endblock %}
+
+
+{% block navbar-brand %}
+<a class="nav-link navbar-brand" href="/">
+    <span class="icon">💀</span>
+    Django-Jack
+</a>
+{% endblock %}
+
+{% block right-nav-links %}
+{% if user.is_authenticated %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'profile' %}">
+        <svg class="icon icon-logo logo-color" aria-hidden="true" focusable="false">
+            <use xlink:href="/static/img/sprite/icons-account.svg#user"></use>
+        </svg>
+        Profile
+    </a>
+</li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <main role="main" class="col-md-auto">
+        Current UTC time is {{ now }}
+    </main>
+</div> <!-- .row -->
+{% endblock %}
+
