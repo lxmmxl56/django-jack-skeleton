@@ -1,9 +1,10 @@
 {% extends "account.base.html" %}
+{% load i18n %}
 
-{% block title %}Logged out{% endblock %}
+{% block title %}{% translate 'Logged out' %}{% endblock %}
 
 {% block content %}
     <div class="container mt-5">
-        <p>You have been successfully logged out.  You can <a href="{% url "login" %}">sign in again</a>.</p>
+        <p>{% translate 'You have been successfully logged out.  You can' %} <a href="{% url "login" %}">{% translate 'sign in again' %}</a>{% translate '.' %}</p>
     </div>
 {% endblock %}

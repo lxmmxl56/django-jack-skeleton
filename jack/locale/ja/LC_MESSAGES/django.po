@@ -1,0 +1,296 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-05 07:47+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: account/forms.py:8
+msgid "Required. Provide a valid email address for account confirmation."
+msgstr "必須。有効なメールアドレスを入力してください"
+
+#: account/templates/account.base.html:9
+msgid "Account"
+msgstr "アカウント"
+
+#: account/templates/account.base.html:17
+msgid "Home"
+msgstr "ホーム"
+
+#: account/templates/account/activation_invalid.html:4
+#: account/templates/account/activation_sent.html:4
+#: account/templates/account/signup.html:4 jack/templates/base.html:59
+msgid "Sign up"
+msgstr "登録"
+
+#: account/templates/account/activation_invalid.html:10
+msgid "Invalid token. Please sign up again"
+msgstr "無効なトークン。 もう一度登録してください"
+
+#: account/templates/account/activation_sent.html:10
+msgid ""
+"Please check your email for a confirmation link to complete your "
+"registration."
+msgstr ""
+"登録を完了するには、メールに記載の確認リンクにアクセスしてしてください。"
+
+#: account/templates/account/activation_success.html:9
+msgid "Activation successful."
+msgstr "アクティベーションに成功しました。"
+
+#: account/templates/account/activation_success.html:9
+msgid "Please login"
+msgstr "ログインしてください"
+
+#: account/templates/account/activation_success.html:9
+#: account/templates/registration/logged_out.html:8
+#: account/templates/registration/password_change_form.html:10
+#: account/templates/registration/password_reset_confirm.html:21
+msgid "."
+msgstr "。"
+
+#: account/templates/account/mail/activation_email.html:1
+msgid "Hi"
+msgstr "こんにちは"
+
+#: account/templates/account/mail/activation_email.html:3
+msgid "Please visit the URL below to confirm your registration:"
+msgstr "以下のURLにアクセスして、登録を確認してください。"
+
+#: account/templates/account/profile.html:4 jack/templates/index.html:32
+msgid "Profile"
+msgstr "プロフィール"
+
+#: account/templates/account/profile.html:10 jack/views.py:45
+msgid "Hiya"
+msgstr "やあ"
+
+#: account/templates/account/profile.html:15
+msgid "Change password"
+msgstr "パスワード変更"
+
+#: account/templates/account/profile.html:20
+msgid "Password reset"
+msgstr "パスワード再設定"
+
+#: account/templates/account/signup.html:13
+msgid "Already have an account?"
+msgstr "すでにアカウントをお持ちですか？"
+
+#: account/templates/account/signup.html:13
+#: account/templates/registration/login.html:4
+msgid "Login"
+msgstr "ログイン"
+
+#: account/templates/account/signup.html:14
+#: account/templates/registration/login.html:15
+#: account/templates/registration/password_reset_confirm.html:16
+msgid "Submit"
+msgstr "送信"
+
+#: account/templates/registration/logged_out.html:4
+msgid "Logged out"
+msgstr "ログアウト完了"
+
+#: account/templates/registration/logged_out.html:8
+msgid "You have been successfully logged out.  You can"
+msgstr "ログアウトされました。"
+
+#: account/templates/registration/logged_out.html:8
+msgid "sign in again"
+msgstr "再度ログインしてください。"
+
+#: account/templates/registration/login.html:13
+msgid "Forgot your password?"
+msgstr "パスワードを忘れた方"
+
+#: account/templates/registration/login.html:14
+msgid "Create an account"
+msgstr "アカウントを作成する"
+
+#: account/templates/registration/password_change_done.html:4
+msgid "Password changed"
+msgstr "パスワード変更完了"
+
+#: account/templates/registration/password_change_done.html:8
+msgid "Password change complete"
+msgstr "パスワード変更完了"
+
+#: account/templates/registration/password_change_done.html:9
+msgid "Your password change was completed successfully."
+msgstr "パスワードの変更は完了しました。"
+
+#: account/templates/registration/password_change_form.html:4
+#: account/templates/registration/password_change_form.html:8
+msgid "Password Change"
+msgstr "パスワード変更"
+
+#: account/templates/registration/password_change_form.html:9
+msgid "Please use the following form to change your password."
+msgstr "次のフォームでパスワードを変更してください。"
+
+#: account/templates/registration/password_change_form.html:10
+msgid "If you don't remember your old password, you can also request a"
+msgstr "元のパスワードを覚えていない場合は、こちらからリクエストできます："
+
+#: account/templates/registration/password_change_form.html:10
+#: account/templates/registration/password_reset_confirm.html:21
+msgid "password reset"
+msgstr "パスワード再設定"
+
+#: account/templates/registration/password_change_form.html:16
+msgid "Change"
+msgstr "変更"
+
+#: account/templates/registration/password_reset_complete.html:4
+#: account/templates/registration/password_reset_confirm.html:4
+#: account/templates/registration/password_reset_confirm.html:8
+#: account/templates/registration/password_reset_done.html:4
+#: account/templates/registration/password_reset_form.html:4
+msgid "Password Reset"
+msgstr "パスワード再設定"
+
+#: account/templates/registration/password_reset_complete.html:8
+msgid "Password Reset Complete"
+msgstr "パスワード再設定完了"
+
+#: account/templates/registration/password_reset_complete.html:9
+msgid "You may now"
+msgstr "新しいパスワードで"
+
+#: account/templates/registration/password_reset_complete.html:9
+msgid "sign in"
+msgstr "ログイン"
+
+#: account/templates/registration/password_reset_complete.html:9
+msgid "with your new password."
+msgstr "してください。"
+
+#: account/templates/registration/password_reset_confirm.html:10
+msgid "Please enter your new password twice to confirm:"
+msgstr "確認のため、新しいパスワードを2回入力してください"
+
+#: account/templates/registration/password_reset_confirm.html:21
+msgid "This password reset link is invalid. Please request a new"
+msgstr "このパスワード再設定リンクは無効です。新しくリクエストしてください。"
+
+#: account/templates/registration/password_reset_done.html:8
+#: account/templates/registration/password_reset_form.html:8
+msgid "Password Reset Request"
+msgstr "パスワード再設定"
+
+#: account/templates/registration/password_reset_done.html:9
+msgid ""
+"A message was sent to your registered email address with instructions for "
+"completing your password reset."
+msgstr ""
+"登録したメールアドレスに、パスワード再設定を完了するための手順が記載された"
+"メッセージが送信されました。"
+
+#: account/templates/registration/password_reset_done.html:10
+msgid ""
+"If you don't receive the message, please make sure you entered the email "
+"address registered with your account and check your spam folder."
+msgstr ""
+"メッセージが届かない場合は、アカウントに登録されているメールアドレスが正しい"
+"か確認し、迷惑メールフォルダ内も確認してください。"
+
+#: account/templates/registration/password_reset_email.html:1
+msgid "A password reset link was requested for the user registered at"
+msgstr ""
+"このメールアドレスで登録あるいは転送設定されているユーザーより、パスワード再"
+"設定のリクエストを受け付けました："
+
+#: account/templates/registration/password_reset_email.html:3
+msgid "If you did not make this request, simply ignore this message."
+msgstr ""
+"このリクエスト申請をしていない場合は、このメッセージへの対応は必要ありませ"
+"ん。"
+
+#: account/templates/registration/password_reset_email.html:5
+msgid ""
+"If you would like to reset your password, please visit the following URL:"
+msgstr ""
+"パスワードを再設定したい場合は、次のリンクにアクセスして再設定を行ってくださ"
+"い："
+
+#: account/templates/registration/password_reset_email.html:9
+msgid "Thank you."
+msgstr "ありがとうございました。"
+
+#: account/templates/registration/password_reset_form.html:9
+msgid "Please enter your e-mail address to receive a password reset link."
+msgstr "パスワード再設定リンクの受信用メールアドレスを入力してください。"
+
+#: account/templates/registration/password_reset_form.html:15
+msgid "Send"
+msgstr "送信"
+
+#: account/views.py:35
+msgid "Activate Your Account"
+msgstr "アカウントをアクティブ化する"
+
+#: jack/settings.py:153
+msgid "English"
+msgstr "英語"
+
+#: jack/settings.py:154
+msgid "Japanese"
+msgstr "日本語"
+
+#: jack/templates/base.html:36
+msgid "Admin"
+msgstr "アドミン"
+
+#: jack/templates/base.html:50
+msgid "Sign out"
+msgstr "ログアウト"
+
+#: jack/templates/base.html:67
+msgid "Sign in"
+msgstr "ログイン"
+
+#: jack/templates/index.html:6
+msgid "Jack"
+msgstr "ジャック"
+
+#: jack/templates/index.html:21
+msgid "Django-Jack"
+msgstr "Django-ジャック"
+
+#: jack/templates/index.html:41
+msgid "Current UTC time is"
+msgstr "現在のUTC時刻は"
+
+#: jack/views.py:22
+msgid "ERROR: This is just a test."
+msgstr "エラー：これはテストです。"
+
+#: jack/views.py:26
+msgid "Hiya Buddy 🌭"
+msgstr "やあバディ 🌭"
+
+#: jack/views.py:37
+msgid "Danger"
+msgstr "危険"
+
+#: jack/views.py:39
+msgid "You've successfully read this message."
+msgstr "このメッセージを正常に読みました。"
+
+#: jack/views.py:47
+msgid "Buddy"
+msgstr "バディ"

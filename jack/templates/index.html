@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-Jack
+{% translate 'Jack' %}
 {% endblock %}
 
 {% block styles %}
@@ -18,7 +18,7 @@ Jack
 {% block navbar-brand %}
 <a class="nav-link navbar-brand" href="/">
     <span class="icon">💀</span>
-    Django-Jack
+    {% translate 'Django-Jack' %}
 </a>
 {% endblock %}
 
@@ -29,7 +29,7 @@ Jack
         <svg class="icon icon-logo logo-color" aria-hidden="true" focusable="false">
             <use xlink:href="/static/img/sprite/icons-account.svg#user"></use>
         </svg>
-        Profile
+        {% translate 'Profile' %}
     </a>
 </li>
 {% endif %}
@@ -38,7 +38,7 @@ Jack
 {% block content %}
 <div class="row">
     <main role="main" class="col-md-auto">
-        Current UTC time is {{ now }}
+        {% translate 'Current UTC time is' %} {{ now }}
     </main>
 </div> <!-- .row -->
 {% endblock %}

@@ -1,10 +1,12 @@
 {% extends "account.base.html" %}
-{% block title %}Sign up{% endblock %}
+{% load i18n %}
+
+{% block title %}{% translate 'Sign up{% endblock %}
 
 {% block content %}
     <div class="container mt-5">
             <div class="row">
-                <div class="col-sm">Activation successful.  Please <a href="{% url 'login' %}">login</a>.
+                <div class="col-sm">{% translate 'Activation successful.' %}  <a href="{% url 'login' %}">{% translate 'Please login' %}</a>{% translate '.' %}
                 </div>
             </div>
     </div>

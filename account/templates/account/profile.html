@@ -1,21 +1,23 @@
 {% extends "account.base.html" %}
-{% block title %}Profile{% endblock %}
+{% load i18n %}
+
+{% block title %}{% translate 'Profile' %}{% endblock %}
 
 {% block content %}
     <div class="container mt-5">
         <div class="row">
             <div class="col-auto">
-                Hiya {{ user }}
+                {% translate 'Hiya' %} {{ user }}
             </div>
         </div>
         <div class="row">
             <div class="col-auto">
-                <a href="{% url 'password_change' %}">Change password</a>
+                <a href="{% url 'password_change' %}">{% translate 'Change password' %}</a>
             </div>
         </div>
         <div class="row">
             <div class="col-auto">
-                <a href="{% url 'password_reset' %}">Password reset</a>
+                <a href="{% url 'password_reset' %}">{% translate 'Password reset' %}</a>
             </div>
         </div>
     </div>

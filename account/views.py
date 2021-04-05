@@ -5,6 +5,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import gettext_lazy as _
 
 from .forms import SignUpForm
 from .token import account_activation_token
@@ -31,7 +32,7 @@ def signup(request):
                 user.is_active = False
                 user.save()
             current_site = get_current_site(request)
-            subject = 'Activate Your Account'
+            subject = _('Activate Your Account')
             message = render_to_string('account/mail/activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
