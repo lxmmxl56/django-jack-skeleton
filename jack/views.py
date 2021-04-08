@@ -3,7 +3,9 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import render, HttpResponse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -55,3 +57,68 @@ def index(request):
             'now': now,
         }
     )
+
+
+@login_required
+def restricted_media(request, filename=None, download=False):
+    try:
+        import urllib
+        quoted_filename = urllib.parse.quote(str(filename))
+
+        import os
+        url = os.path.join(
+            settings.MEDIA_ROOT, quoted_filename
+        )
+
+        from mimetypes import MimeTypes
+        content_type, _ = MimeTypes().guess_type(
+            os.path.basename(filename)
+        )
+        if not content_type:
+            log.debug(
+                "No content-type found for file: %s"
+                % os.path.basename(filename)
+            )
+            content_type = "text/plain"
+
+        with open(url, "rb") as f:
+            data = f.read()
+            data_start = 0
+            data_length = len(data)
+            data_end = data_length - 1
+            file_length = data_length
+            if 'range' in request.headers:
+                range = request.headers['range']
+                # expecting bytes=0-1
+                if 'bytes' in range:
+                    if '=' in range:
+                        range = range.split('=')[1]
+                    elif ' ' in range:
+                        range = range.split(' ')[1]
+                    if '-' in range:
+                        range_start, range_end = range.split('-')
+                        if not range_end:
+                            range_end = data_end
+                        f.seek(int(range_start))
+                        # add 1 to the following to be inclusive
+                        read_range = int(range_end) - int(range_start) + 1
+                        if 1 > read_range:
+                            read_range = 1
+                        data = f.read(read_range)
+                        data_length = len(data)
+                        data_start = range_start
+                        data_end = range_end
+                resp = HttpResponse(data, content_type=content_type, status=206)
+                resp['Accept-Ranges'] = 'bytes'
+                resp['Content-Length'] = data_length
+                resp['Content-Range'] = 'bytes %s-%s/%s' % (data_start, data_end, file_length)
+            else:
+                resp = HttpResponse(data, content_type=content_type)
+            if download:
+                resp['Content-Disposition'] = f'attachment; filename="{filename}"'
+            # resp['access-control-allow-origin'] = '*'
+            resp['X-Robots-Tag'] = 'noindex, nofollow'
+            return resp
+    except IOError as ex:
+        data = {"file ERROR": str(ex),}
+        return JsonResponse(data)
