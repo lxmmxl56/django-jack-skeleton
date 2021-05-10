@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+
+{% load i18n static jack_extras %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/lang-switcher.css' %}">
+{% endblock %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}
+    <form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input class="form-control form-control-sm" name="next" type="hidden" value="{{ request.get_full_path|remove_language_codes }}">
+    <input class="form-control form-control-sm" name="language" type="hidden" value="{% if LANGUAGE_CODE and 'ja' == LANGUAGE_CODE %}en{% else %}ja{% endif %}">
+    <button class="btn language-button p-0" type="submit">
+      {% if LANGUAGE_CODE and 'ja' == LANGUAGE_CODE %}<span class="badge bg-secondary">Ａ</span>  <span class="badge bg-light text-dark">あ</span>{% else %}<span class="badge bg-light text-dark">Ａ</span>  <span class="badge bg-secondary">あ</span>{% endif %}
+    </button>
+    </form>
+{% endblock %}
