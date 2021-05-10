@@ -17,3 +17,7 @@ urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
 )
+
+admin.site.site_header = _('Jack')
+admin.site.site_title = _('Jack')
+admin.site.index_title = ''
