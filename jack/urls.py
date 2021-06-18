@@ -3,6 +3,7 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.utils.translation import gettext_lazy as _
 
 from . import views
 
@@ -18,6 +19,6 @@ urlpatterns += i18n_patterns(
     path('account/', include('account.urls')),
 )
 
-admin.site.site_header = _('Jack')
-admin.site.site_title = _('Jack')
+admin.site.site_header = _('Jack Admin')
+admin.site.site_title = ''
 admin.site.index_title = ''
