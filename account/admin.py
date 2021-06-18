@@ -1,33 +1,32 @@
 from django.contrib import admin
-from django.urls import reverse
-from django.utils.safestring import mark_safe
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 from .models import Profile
 
 
-class ProfileAdmin(admin.ModelAdmin):
-    def user_link(self, obj):
-        if obj.user is not None:
-            username = obj.user.username
-            user_id = obj.user.id
-            url = reverse('admin:auth_user_change', args=[user_id])
-            link = '<a href="%s">%s</a>' % (url, username)
-            return mark_safe(link)
-        else:
-            return None
-
-    raw_id_fields = ('user',)
-    search_fields = (
-        'user__username',
-        'user__first_name',
-        'user__last_name',
-    )
-    list_display = (
-        'id',
-        'user_link',
-        'email_confirmed',
-    )
-    list_filter = ('email_confirmed',)
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name = _('profile')
+    verbose_name_plural = _('profiles')
+    fk_name = 'user'
 
 
-admin.site.register(Profile, ProfileAdmin)
+class CustomUserAdmin(UserAdmin):
+    inlines = (ProfileInline,)
+    list_display = ('username', 'email', 'email_confirmed')
+
+    def email_confirmed(self, instance):
+        return instance.profile.email_confirmed
+    email_confirmed.short_description = _('email confirmed')
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super(CustomUserAdmin, self).get_inline_instances(request, obj)
+
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
