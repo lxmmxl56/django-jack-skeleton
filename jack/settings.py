@@ -125,6 +125,8 @@ else:  # pragma: no cover
         }
     }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # Authentication
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
