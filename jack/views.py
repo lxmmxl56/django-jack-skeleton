@@ -62,14 +62,7 @@ def index(request):
 @login_required
 def restricted_media(request, filename=None, download=False):
     try:
-        import urllib
-        quoted_filename = urllib.parse.quote(str(filename))
-
         import os
-        url = os.path.join(
-            settings.MEDIA_ROOT, quoted_filename
-        )
-
         from mimetypes import MimeTypes
         content_type, _ = MimeTypes().guess_type(
             os.path.basename(filename)
@@ -81,7 +74,14 @@ def restricted_media(request, filename=None, download=False):
             )
             content_type = "text/plain"
 
-        with open(url, "rb") as f:
+        url = str(filename)
+        try:
+            file_name = ReportFile.objects.get(file=url).name
+        except ReportFile.DoesNotExist:
+            file_name = ReportFile.objects.get(file=os.path.join(settings.MEDIA_ROOT, url)).name
+        import urllib
+        quoted_filename = urllib.parse.quote(str(filename))
+        with open(os.path.join(settings.MEDIA_ROOT, quoted_filename), "rb") as f:
             data = f.read()
             data_start = 0
             data_length = len(data)
@@ -115,7 +115,7 @@ def restricted_media(request, filename=None, download=False):
             else:
                 resp = HttpResponse(data, content_type=content_type)
             if download:
-                resp['Content-Disposition'] = f'attachment; filename="{filename}"'
+                resp['Content-Disposition'] = f'attachment; filename="{file_name}"'
             # resp['access-control-allow-origin'] = '*'
             resp['X-Robots-Tag'] = 'noindex, nofollow'
             return resp
