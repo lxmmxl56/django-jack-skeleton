@@ -48,6 +48,13 @@
                 {% render_field field class+="custom-control-input no-validate" %}
                 <label class="custom-control-label no-validate" for="{{ field.auto_id }}">{{ field.label|safe }}</label>
             </div>
+            {% elif field.field.widget.input_type == 'radio' %}
+            {% for radio in field %}
+            <div class="form-check form-check-radio-tag">
+                {{ radio.tag }}
+                <label class="form-check-label" for="{{ radio.id_for_label }}">{{ radio.choice_label|safe }}</label>
+            </div>
+            {% endfor %}
             {% else %}
                 {{ field.label_tag|safe }}
                 {% if form.is_bound %}

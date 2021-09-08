@@ -19,6 +19,8 @@ from django.urls import reverse_lazy
 
 SITE_ID = 1
 
+PROJECT_NAME = 'Django Jack'
+
 # Constants for DJANGO_HOST
 PROD = 'prod'
 DEV = 'dev'
@@ -70,6 +72,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
+    'django_otp',
+    'django_otp.plugins.otp_static',
+    'django_otp.plugins.otp_totp',
+    'two_factor',
     'mailer',
     'widget_tweaks',
 ]
@@ -81,6 +87,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -128,9 +135,12 @@ else:  # pragma: no cover
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Authentication
-LOGIN_URL = reverse_lazy('login')
+TWO_FACTOR_EMAIL_GATEWAY = 'two_factor.gateways.email.Email'
+LOGIN_URL = 'two_factor:login'
+OTP_LOGIN_URL = 'two_factor:setup'
 LOGOUT_URL = reverse_lazy('logout')
 LOGIN_REDIRECT_URL = reverse_lazy('index')
+TWO_FACTOR_CANCEL_URL = reverse_lazy('profile')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

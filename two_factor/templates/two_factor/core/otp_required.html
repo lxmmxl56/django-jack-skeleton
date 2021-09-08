@@ -1,0 +1,20 @@
+{% extends "account.base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-auto">
+      <h1 class="fs-2">{% block title %}{% trans "Permission Denied" %}{% endblock %}</h1>
+
+      <p>{% blocktrans trimmed %}The page you requested requires two-factor authentication.  Please enable two-factor authentication to access this page.{% endblocktrans %}</p>
+      <p>
+        <a href="javascript:history.go(-1)"
+        class="float-right btn btn-link">{% trans "Go back" %}</a>
+        <a href="{% url 'two_factor:setup' %}" class="btn btn-primary">
+        {% trans "Enable Two-Factor Authentication" %}</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
