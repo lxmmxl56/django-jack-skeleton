@@ -37,4 +37,4 @@ def device_action(device):
     """
     assert isinstance(device, EmailDevice)
     address = mask_email_address(device.address)
-    return _('Send mail to %s') % address
+    return _('Send token to %s') % address

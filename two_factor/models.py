@@ -40,10 +40,12 @@ class EmailDevice(Device):
         app_label = 'two_factor'
 
     address = models.EmailField()
-    key = models.CharField(max_length=40,
-                           validators=[key_validator],
-                           default=random_hex,
-                           help_text="Hex-encoded secret key")
+    key = models.CharField(
+        max_length=40,
+        validators=[key_validator],
+        default=random_hex,
+        help_text="Hex-encoded secret key"
+    )
     method = 'email'
 
     def __repr__(self):

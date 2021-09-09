@@ -4,6 +4,8 @@ from time import time
 from django import forms
 from django.core.validators import validate_email
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.forms import Form, ModelForm
 from django.utils.translation import gettext_lazy as _
 from django_otp.forms import OTPAuthenticationFormMixin
@@ -17,6 +19,7 @@ from .utils import totp_digits
 
 
 class MethodForm(forms.Form):
+
     method = forms.ChoiceField(
         label=_("Method"),
         initial='generator',
@@ -29,10 +32,17 @@ class MethodForm(forms.Form):
 
 
 class EmailForm(ModelForm):
-    address = forms.CharField(
+    address = forms.EmailField(
         label=_("Email Address"),
-        validators=[validate_email]
+        help_text=_('Please provide a valid email address'),
     )
+
+    address.widget.attrs.update({
+        'autofocus': 'autofocus',
+        'inputmode': 'email',
+        'autocomplete': 'email',
+        'size': '32',
+    })
 
     class Meta:
         model = EmailDevice
@@ -44,6 +54,44 @@ class EmailForm(ModelForm):
         self.fields['address'].initial = user.email
 
 
+class BackupEmailForm(ModelForm):
+    error_messages = {
+        'email_exists': _('This email address is already in use.'),
+    }
+
+    address = forms.EmailField(
+        label=_("Email Address"),
+        help_text=_('Please provide a valid email address'),
+    )
+
+    address.widget.attrs.update({
+        'autofocus': 'autofocus',
+        'inputmode': 'email',
+        'autocomplete': 'email',
+        'size': '32',
+    })
+
+    class Meta:
+        model = EmailDevice
+        fields = 'address',
+
+    def __init__(self, user, **kwargs):
+        super().__init__(**kwargs)
+        self.user = user
+        if not EmailDevice.objects.filter(address=user.email).exists():
+            self.fields['address'].initial = user.email
+
+    def clean_address(self):
+        email = self.cleaned_data.get('address')
+        if email and (EmailDevice.objects.filter(address=email).exists() or (User.objects.filter(email=email).exists() and email != self.user.email)):
+            raise ValidationError(
+                self.error_messages['email_exists'],
+                code='email_exists',
+            )
+        else:
+            return email
+
+
 class DeviceValidationForm(forms.Form):
     token = forms.CharField(label=_("Token"))
 
@@ -51,10 +99,11 @@ class DeviceValidationForm(forms.Form):
         'autofocus': 'autofocus',
         'inputmode': 'numeric',
         'pattern': '[0-9]*',
-        'autocomplete': 'one-time-code'
+        'autocomplete': 'one-time-code',
+        'size': '8',
     })
     error_messages = {
-        'invalid_token': _('Entered token is not valid.'),
+        'invalid_token': _('Invalid tokena.'),
     }
 
     def __init__(self, device, **args):
@@ -75,11 +124,12 @@ class TOTPDeviceForm(forms.Form):
         {'autofocus': 'autofocus',
         'inputmode': 'numeric',
         'pattern': '[0-9]*',
-        'autocomplete': 'one-time-code'
+        'autocomplete': 'one-time-code',
+        'size': '8',
         })
 
     error_messages = {
-        'invalid_token': _('Entered token is not valid.'),
+        'invalid_token': _('Invalid tokenb.'),
     }
 
     def __init__(self, key, user, metadata=None, **kwargs):
@@ -114,6 +164,7 @@ class TOTPDeviceForm(forms.Form):
                     self.metadata['valid_t0'] = int(time()) - t0
                     validated = True
         if not validated:
+            return token
             raise forms.ValidationError(self.error_messages['invalid_token'])
         return token
 
@@ -141,7 +192,8 @@ class AuthenticationTokenForm(OTPAuthenticationFormMixin, Form):
         {'autofocus': 'autofocus',
         'inputmode': 'numeric',
         'pattern': '[0-9]*',
-        'autocomplete': 'one-time-code'
+        'autocomplete': 'one-time-code',
+        'size': '8',
     })
 
     # Our authentication form has an additional submit button to go to the

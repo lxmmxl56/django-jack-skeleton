@@ -136,11 +136,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Authentication
 TWO_FACTOR_EMAIL_GATEWAY = 'two_factor.gateways.email.Email'
-LOGIN_URL = 'two_factor:login'
+LOGIN_URL = 'login'
 OTP_LOGIN_URL = 'two_factor:setup'
 LOGOUT_URL = reverse_lazy('logout')
 LOGIN_REDIRECT_URL = reverse_lazy('index')
-TWO_FACTOR_CANCEL_URL = reverse_lazy('profile')
+TWO_FACTOR_CANCEL_URL = reverse_lazy('two_factor:profile')
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

@@ -4,7 +4,6 @@
 {% block title %}{% translate 'Login' %}{% endblock %}
 
 {% block content %}
-tf
 <div class="container mt-5">
 
   {% if wizard.steps.current == 'token' %}
@@ -25,13 +24,13 @@ tf
     <input type="submit" class="d-none">
 
     {% if other_devices %}
-    <p>{% trans "Alternatively, use one of your backup addresses:" %}</p>
+    <p>{% trans "Send a token to one of your backup addresses:" %}</p>
     <p>
       {% for other in other_devices %}
-      <button name="challenge_device" value="{{ other.persistent_id }}"
+      <p><button name="challenge_device" value="{{ other.persistent_id }}"
       class="btn btn-secondary btn-block" type="submit">
         {{ other|device_action }}
-      </button>
+      </button></p>
       {% endfor %}</p>
     {% endif %}
   {% if backup_tokens %}

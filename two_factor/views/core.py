@@ -40,7 +40,7 @@ from two_factor.utils import totp_digits
 
 from ..forms import (
     AuthenticationTokenForm, BackupTokenForm, DeviceValidationForm, MethodForm,
-    EmailForm, TOTPDeviceForm,
+    EmailForm, BackupEmailForm, TOTPDeviceForm,
 )
 from ..models import EmailDevice, get_available_email_methods
 from ..utils import backup_emails, default_device, get_otpauth_url
@@ -617,15 +617,15 @@ class BackupTokensView(FormView):
 @class_view_decorator(otp_required)
 class EmailSetupView(IdempotentSessionWizardView):
     """
-    View for configuring an email address for receiving tokens.
+    View for configuring a backup email address for receiving tokens.
 
     A user can have multiple backup :class:`~two_factor.models.EmailDevice`
     for receiving OTP tokens. If the primary address is not available backup addresses can be used for verification.
     """
     template_name = 'two_factor/core/email_register.html'
-    success_url = settings.LOGIN_REDIRECT_URL
+    success_url = settings.TWO_FACTOR_CANCEL_URL
     form_list = (
-        ('setup', EmailForm),
+        ('setup', BackupEmailForm),
         ('validation', DeviceValidationForm),
     )
     key_name = 'key'
@@ -693,7 +693,7 @@ class EmailDeleteView(DeleteView):
     """
     View for removing an email address used for verification.
     """
-    success_url = settings.LOGIN_REDIRECT_URL
+    success_url = settings.TWO_FACTOR_CANCEL_URL
 
     def get_queryset(self):
         return self.request.user.emaildevice_set.filter(name='backup')

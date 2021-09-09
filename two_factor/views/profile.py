@@ -46,7 +46,7 @@ class DisableView(FormView):
     View for disabling two-factor for a user's account.
     """
     template_name = 'two_factor/profile/disable.html'
-    success_url = lazy(resolve_url, str)(settings.LOGIN_REDIRECT_URL)
+    success_url = lazy(resolve_url, str)(settings.TWO_FACTOR_CANCEL_URL)
     form_class = DisableForm
 
     def dispatch(self, *args, **kwargs):
