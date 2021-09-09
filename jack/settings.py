@@ -141,6 +141,7 @@ OTP_LOGIN_URL = 'two_factor:setup'
 LOGOUT_URL = reverse_lazy('logout')
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 TWO_FACTOR_CANCEL_URL = reverse_lazy('two_factor:profile')
+ADMIN_SITE_OTP_REQUIRED = True
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -285,6 +286,7 @@ MESSAGE_TAGS = {
 TESTING = 'test' in sys.argv
 
 if TESTING:
+    ADMIN_SITE_OTP_REQUIRED = False
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
     PASSWORD_HASHERS = [
         'django.contrib.auth.hashers.MD5PasswordHasher',
