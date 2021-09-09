@@ -14,7 +14,7 @@ log = getLogger(settings.DEBUG_LOGGER)
 
 def index(request):
     now = timezone.now()
-    log.debug(now)
+    # log.debug(now)
 
     # Add a bootstrap color tag and message to this list to display an alert
     alerts = []

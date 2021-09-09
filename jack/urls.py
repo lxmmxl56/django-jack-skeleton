@@ -7,6 +7,11 @@ from django.utils.translation import gettext_lazy as _
 
 from . import views
 
+from two_factor.urls import urlpatterns as tf_urls
+from two_factor.admin import AdminSiteOTPRequired
+
+admin.site.__class__ = AdminSiteOTPRequired
+
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('media/<str:filename>/', views.restricted_media, name="restricted_media"),
@@ -18,6 +23,7 @@ urlpatterns += i18n_patterns(
     path('', include('help.urls')),
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
+    path('', include(tf_urls)),
 )
 
 admin.site.site_header = _('Jack Admin')
