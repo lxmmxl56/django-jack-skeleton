@@ -10,6 +10,14 @@ Passwords and secrets are not stored in the repo.  Copy jack/config.ini.example 
 python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
 ```
 
+## 🗂️ Import Initial Data
+
+Run the following to set up some sample help text:
+
+```
+python manage.py loaddata help.json
+```
+
 ## 🧪 Testing  
 
 Run test with the following command:

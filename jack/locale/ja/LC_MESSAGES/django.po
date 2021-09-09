@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-05 07:47+0000\n"
+"POT-Creation-Date: 2021-09-09 05:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: account/admin.py:12
+#, fuzzy
+#| msgid "Profile"
+msgid "profile"
+msgstr "プロフィール"
+
+#: account/admin.py:13
+msgid "profiles"
+msgstr "プロフィール"
+
+#: account/admin.py:23
+msgid "email confirmed"
+msgstr ""
 
 #: account/forms.py:8
 msgid "Required. Provide a valid email address for account confirmation."
@@ -32,7 +46,8 @@ msgstr "ホーム"
 
 #: account/templates/account/activation_invalid.html:4
 #: account/templates/account/activation_sent.html:4
-#: account/templates/account/signup.html:4 jack/templates/base.html:59
+#: account/templates/account/activation_success.html:4
+#: account/templates/account/signup.html:4 jack/templates/base.html:65
 msgid "Sign up"
 msgstr "登録"
 
@@ -70,11 +85,12 @@ msgstr "こんにちは"
 msgid "Please visit the URL below to confirm your registration:"
 msgstr "以下のURLにアクセスして、登録を確認してください。"
 
-#: account/templates/account/profile.html:4 jack/templates/index.html:32
+#: account/templates/account/profile.html:4 help/templates/help.html:31
+#: jack/templates/index.html:32
 msgid "Profile"
 msgstr "プロフィール"
 
-#: account/templates/account/profile.html:10 jack/views.py:45
+#: account/templates/account/profile.html:10 jack/views.py:47
 msgid "Hiya"
 msgstr "やあ"
 
@@ -243,23 +259,40 @@ msgstr "送信"
 msgid "Activate Your Account"
 msgstr "アカウントをアクティブ化する"
 
-#: jack/settings.py:153
+#: help/templates/help.html:6 help/templates/help.html:42
+#: help/templates/help.html:59 jack/templates/base.html:31
+msgid "Help"
+msgstr "ヘルプ"
+
+#: help/templates/help.html:20 jack/templates/index.html:21
+msgid "Django-Jack"
+msgstr "Django-ジャック"
+
+#: jack/settings.py:160
 msgid "English"
 msgstr "英語"
 
-#: jack/settings.py:154
+#: jack/settings.py:161
 msgid "Japanese"
 msgstr "日本語"
 
-#: jack/templates/base.html:36
+#: jack/templates/admin/base_site.html:10
+msgid "Django site admin"
+msgstr "サイトアドミン"
+
+#: jack/templates/admin/base_site.html:13
+msgid "Django administration"
+msgstr "アドミン"
+
+#: jack/templates/base.html:42
 msgid "Admin"
 msgstr "アドミン"
 
-#: jack/templates/base.html:50
+#: jack/templates/base.html:56
 msgid "Sign out"
 msgstr "ログアウト"
 
-#: jack/templates/base.html:67
+#: jack/templates/base.html:73
 msgid "Sign in"
 msgstr "ログイン"
 
@@ -267,30 +300,30 @@ msgstr "ログイン"
 msgid "Jack"
 msgstr "ジャック"
 
-#: jack/templates/index.html:21
-msgid "Django-Jack"
-msgstr "Django-ジャック"
-
 #: jack/templates/index.html:41
 msgid "Current UTC time is"
 msgstr "現在のUTC時刻は"
 
-#: jack/views.py:22
+#: jack/urls.py:23
+msgid "Jack Admin"
+msgstr "アドミン"
+
+#: jack/views.py:24
 msgid "ERROR: This is just a test."
 msgstr "エラー：これはテストです。"
 
-#: jack/views.py:26
+#: jack/views.py:28
 msgid "Hiya Buddy 🌭"
 msgstr "やあバディ 🌭"
 
-#: jack/views.py:37
+#: jack/views.py:39
 msgid "Danger"
 msgstr "危険"
 
-#: jack/views.py:39
+#: jack/views.py:41
 msgid "You've successfully read this message."
 msgstr "このメッセージを正常に読みました。"
 
-#: jack/views.py:47
+#: jack/views.py:49
 msgid "Buddy"
 msgstr "バディ"

@@ -26,6 +26,11 @@
       </button>
       <div class="collapse navbar-collapse" id="myTabbar">
         <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link{% if section == 'help' %} active{% endif %}" href="{% url 'help' %}">
+              {% translate 'Help' %}
+            </a>
+          </li>
           {% block left-nav-links %}
           {% endblock %}
           {% if request.user.is_staff %}

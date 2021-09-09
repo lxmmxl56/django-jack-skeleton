@@ -1,0 +1,18 @@
+.sidebar {
+    width: auto;
+    min-height: calc(100vh - 56px - 2rem);
+}
+
+.sidebar-sticky {
+    position: sticky;
+    top: calc(56px + 2rem);
+}
+
+.help-navbar {
+    min-height: 100%;
+}
+
+.anchor {
+   position: relative;
+   top: calc(-56px - .5rem);
+}
