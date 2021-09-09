@@ -45,14 +45,17 @@ SECRET_KEY = config.get('keys', 'secret')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if PROD == DJANGO_HOST:  # pragma: no cover
-  DEBUG = False
-  SECURE_HSTS_SECONDS = 60
-  SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-  SECURE_SSL_REDIRECT = True
-  SESSION_COOKIE_SECURE = True
-  CSRF_COOKIE_SECURE = True
+    DEBUG = False
+    SECURE_HSTS_SECONDS = 60
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = 'Strict'
+    CSRF_COOKIE_HTTPONLY = True
+    CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_SAMESITE = 'Strict'
 else:
-  DEBUG = True
+    DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
