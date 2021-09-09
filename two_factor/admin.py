@@ -31,12 +31,12 @@ class AdminSiteOTPRequiredMixin(object):
         """
         Redirects to the site login page for the given HttpRequest.
         """
-        redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
+        # redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME, resolve_url('two_factor:setup')))
 
-        if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
-            redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+        # if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
+        #     redirect_to = resolve_url('two_factor:setup')
 
-        return redirect_to_login(redirect_to)
+        return redirect_to_login(resolve_url('two_factor:setup'))
 
 
 class AdminSiteOTPRequired(AdminSiteOTPRequiredMixin, AdminSite):
@@ -52,12 +52,12 @@ def patch_admin():
         """
         Redirects to the site login page for the given HttpRequest.
         """
-        redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
+        # redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME, resolve_url('two_factor:setup')))
 
-        if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
-            redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+        # if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
+        #     redirect_to = resolve_url('two_factor:setup')
 
-        return redirect_to_login(redirect_to)
+        return redirect_to_login(resolve_url('two_factor:setup'))
 
 
 def unpatch_admin():
