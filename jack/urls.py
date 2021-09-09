@@ -10,7 +10,8 @@ from . import views
 from two_factor.urls import urlpatterns as tf_urls
 from two_factor.admin import AdminSiteOTPRequired
 
-admin.site.__class__ = AdminSiteOTPRequired
+if settings.ADMIN_SITE_OTP_REQUIRED:
+    admin.site.__class__ = AdminSiteOTPRequired
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
