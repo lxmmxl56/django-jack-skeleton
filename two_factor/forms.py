@@ -103,7 +103,7 @@ class DeviceValidationForm(forms.Form):
         'size': '8',
     })
     error_messages = {
-        'invalid_token': _('Invalid tokena.'),
+        'invalid_token': _('Invalid token.'),
     }
 
     def __init__(self, device, **args):
@@ -129,7 +129,7 @@ class TOTPDeviceForm(forms.Form):
         })
 
     error_messages = {
-        'invalid_token': _('Invalid tokenb.'),
+        'invalid_token': _('Invalid token.'),
     }
 
     def __init__(self, key, user, metadata=None, **kwargs):

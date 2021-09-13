@@ -6,7 +6,7 @@
 {% block contents %}
 <div class="row">
     <div class="col-auto">
-        <h1 class="fs-2">Profile</h1>
+        <h1 class="fs-2">{% translate 'Profile' %}</h1>
         {% translate 'Hiya' %} {{ user }}
     </div> <!-- .col-auto -->
 </div> <!-- .row -->
@@ -22,7 +22,7 @@
 </div> <!-- .row -->
 <div class="row mt-3">
     <div class="col-auto">
-        <h2 class="fs-4">Account Security</h2>
+        <h2 class="fs-4">{% translate 'Account Security' %}</h2>
         <a href="{% url 'two_factor:profile' %}">{% translate 'Two-Factor Authentication' %}</a>
     </div> <!-- .col-auto -->
 </div> <!-- .row -->

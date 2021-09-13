@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-09 05:53+0000\n"
+"POT-Creation-Date: 2021-09-13 04:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,8 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: account/admin.py:12
-#, fuzzy
-#| msgid "Profile"
 msgid "profile"
 msgstr "プロフィール"
 
@@ -30,17 +28,17 @@ msgstr "プロフィール"
 
 #: account/admin.py:23
 msgid "email confirmed"
-msgstr ""
+msgstr "メール確認"
 
 #: account/forms.py:8
 msgid "Required. Provide a valid email address for account confirmation."
 msgstr "必須。有効なメールアドレスを入力してください"
 
-#: account/templates/account.base.html:9
+#: account/templates/account.base.html:13
 msgid "Account"
 msgstr "アカウント"
 
-#: account/templates/account.base.html:17
+#: account/templates/account.base.html:21
 msgid "Home"
 msgstr "ホーム"
 
@@ -51,11 +49,11 @@ msgstr "ホーム"
 msgid "Sign up"
 msgstr "登録"
 
-#: account/templates/account/activation_invalid.html:10
+#: account/templates/account/activation_invalid.html:9
 msgid "Invalid token. Please sign up again"
 msgstr "無効なトークン。 もう一度登録してください"
 
-#: account/templates/account/activation_sent.html:10
+#: account/templates/account/activation_sent.html:9
 msgid ""
 "Please check your email for a confirmation link to complete your "
 "registration."
@@ -71,9 +69,9 @@ msgid "Please login"
 msgstr "ログインしてください"
 
 #: account/templates/account/activation_success.html:9
-#: account/templates/registration/logged_out.html:8
-#: account/templates/registration/password_change_form.html:10
-#: account/templates/registration/password_reset_confirm.html:21
+#: account/templates/registration/logged_out.html:9
+#: account/templates/registration/password_change_form.html:11
+#: account/templates/registration/password_reset_confirm.html:22
 msgid "."
 msgstr "。"
 
@@ -85,12 +83,13 @@ msgstr "こんにちは"
 msgid "Please visit the URL below to confirm your registration:"
 msgstr "以下のURLにアクセスして、登録を確認してください。"
 
-#: account/templates/account/profile.html:4 help/templates/help.html:31
+#: account/templates/account/profile.html:4
+#: account/templates/account/profile.html:9 help/templates/help.html:31
 #: jack/templates/index.html:32
 msgid "Profile"
 msgstr "プロフィール"
 
-#: account/templates/account/profile.html:10 jack/views.py:47
+#: account/templates/account/profile.html:10 jack/views.py:46
 msgid "Hiya"
 msgstr "やあ"
 
@@ -102,18 +101,31 @@ msgstr "パスワード変更"
 msgid "Password reset"
 msgstr "パスワード再設定"
 
-#: account/templates/account/signup.html:13
+#: account/templates/account/profile.html:25
+#: two_factor/templates/two_factor/profile/profile.html:7
+msgid "Account Security"
+msgstr "アカウントのセキュリティ"
+
+#: account/templates/account/profile.html:26
+#: two_factor/templates/two_factor/core/setup_complete.html:7
+msgid "Two-Factor Authentication"
+msgstr "2要素認証"
+
+#: account/templates/account/signup.html:12
 msgid "Already have an account?"
 msgstr "すでにアカウントをお持ちですか？"
 
-#: account/templates/account/signup.html:13
+#: account/templates/account/signup.html:12
 #: account/templates/registration/login.html:4
+#: two_factor/templates/two_factor/core/login.html:4
 msgid "Login"
 msgstr "ログイン"
 
-#: account/templates/account/signup.html:14
-#: account/templates/registration/login.html:15
-#: account/templates/registration/password_reset_confirm.html:16
+#: account/templates/account/signup.html:13
+#: account/templates/registration/login.html:16
+#: account/templates/registration/password_reset_confirm.html:17
+#: two_factor/templates/two_factor/_wizard_actions.html:4
+#: two_factor/templates/two_factor/_wizard_actions.html:15
 msgid "Submit"
 msgstr "送信"
 
@@ -121,19 +133,21 @@ msgstr "送信"
 msgid "Logged out"
 msgstr "ログアウト完了"
 
-#: account/templates/registration/logged_out.html:8
+#: account/templates/registration/logged_out.html:9
 msgid "You have been successfully logged out.  You can"
 msgstr "ログアウトされました。"
 
-#: account/templates/registration/logged_out.html:8
+#: account/templates/registration/logged_out.html:9
 msgid "sign in again"
 msgstr "再度ログインしてください。"
 
-#: account/templates/registration/login.html:13
+#: account/templates/registration/login.html:14
+#: two_factor/templates/two_factor/core/login.html:43
 msgid "Forgot your password?"
 msgstr "パスワードを忘れた方"
 
-#: account/templates/registration/login.html:14
+#: account/templates/registration/login.html:15
+#: two_factor/templates/two_factor/core/login.html:44
 msgid "Create an account"
 msgstr "アカウントを作成する"
 
@@ -141,74 +155,74 @@ msgstr "アカウントを作成する"
 msgid "Password changed"
 msgstr "パスワード変更完了"
 
-#: account/templates/registration/password_change_done.html:8
+#: account/templates/registration/password_change_done.html:9
 msgid "Password change complete"
 msgstr "パスワード変更完了"
 
-#: account/templates/registration/password_change_done.html:9
+#: account/templates/registration/password_change_done.html:10
 msgid "Your password change was completed successfully."
 msgstr "パスワードの変更は完了しました。"
 
 #: account/templates/registration/password_change_form.html:4
-#: account/templates/registration/password_change_form.html:8
+#: account/templates/registration/password_change_form.html:9
 msgid "Password Change"
 msgstr "パスワード変更"
 
-#: account/templates/registration/password_change_form.html:9
+#: account/templates/registration/password_change_form.html:10
 msgid "Please use the following form to change your password."
 msgstr "次のフォームでパスワードを変更してください。"
 
-#: account/templates/registration/password_change_form.html:10
+#: account/templates/registration/password_change_form.html:11
 msgid "If you don't remember your old password, you can also request a"
 msgstr "元のパスワードを覚えていない場合は、こちらからリクエストできます："
 
-#: account/templates/registration/password_change_form.html:10
-#: account/templates/registration/password_reset_confirm.html:21
+#: account/templates/registration/password_change_form.html:11
+#: account/templates/registration/password_reset_confirm.html:22
 msgid "password reset"
 msgstr "パスワード再設定"
 
-#: account/templates/registration/password_change_form.html:16
+#: account/templates/registration/password_change_form.html:17
 msgid "Change"
 msgstr "変更"
 
 #: account/templates/registration/password_reset_complete.html:4
 #: account/templates/registration/password_reset_confirm.html:4
-#: account/templates/registration/password_reset_confirm.html:8
+#: account/templates/registration/password_reset_confirm.html:9
 #: account/templates/registration/password_reset_done.html:4
 #: account/templates/registration/password_reset_form.html:4
 msgid "Password Reset"
 msgstr "パスワード再設定"
 
-#: account/templates/registration/password_reset_complete.html:8
+#: account/templates/registration/password_reset_complete.html:9
 msgid "Password Reset Complete"
 msgstr "パスワード再設定完了"
 
-#: account/templates/registration/password_reset_complete.html:9
+#: account/templates/registration/password_reset_complete.html:10
 msgid "You may now"
 msgstr "新しいパスワードで"
 
-#: account/templates/registration/password_reset_complete.html:9
+#: account/templates/registration/password_reset_complete.html:10
 msgid "sign in"
 msgstr "ログイン"
 
-#: account/templates/registration/password_reset_complete.html:9
+#: account/templates/registration/password_reset_complete.html:10
 msgid "with your new password."
 msgstr "してください。"
 
-#: account/templates/registration/password_reset_confirm.html:10
+#: account/templates/registration/password_reset_confirm.html:11
 msgid "Please enter your new password twice to confirm:"
 msgstr "確認のため、新しいパスワードを2回入力してください"
 
-#: account/templates/registration/password_reset_confirm.html:21
+#: account/templates/registration/password_reset_confirm.html:22
 msgid "This password reset link is invalid. Please request a new"
 msgstr "このパスワード再設定リンクは無効です。新しくリクエストしてください。"
 
-#: account/templates/registration/password_reset_done.html:8
-#: account/templates/registration/password_reset_form.html:8
+#: account/templates/registration/password_reset_done.html:9
+#: account/templates/registration/password_reset_form.html:9
 msgid "Password Reset Request"
 msgstr "パスワード再設定"
 
-#: account/templates/registration/password_reset_done.html:9
+#: account/templates/registration/password_reset_done.html:10
 msgid ""
 "A message was sent to your registered email address with instructions for "
 "completing your password reset."
@@ -216,7 +230,7 @@ msgstr ""
 "登録したメールアドレスに、パスワード再設定を完了するための手順が記載された"
 "メッセージが送信されました。"
 
-#: account/templates/registration/password_reset_done.html:10
+#: account/templates/registration/password_reset_done.html:11
 msgid ""
 "If you don't receive the message, please make sure you entered the email "
 "address registered with your account and check your spam folder."
@@ -247,11 +261,11 @@ msgstr ""
 msgid "Thank you."
 msgstr "ありがとうございました。"
 
-#: account/templates/registration/password_reset_form.html:9
+#: account/templates/registration/password_reset_form.html:10
 msgid "Please enter your e-mail address to receive a password reset link."
 msgstr "パスワード再設定リンクの受信用メールアドレスを入力してください。"
 
-#: account/templates/registration/password_reset_form.html:15
+#: account/templates/registration/password_reset_form.html:16
 msgid "Send"
 msgstr "送信"
 
@@ -259,8 +273,9 @@ msgstr "送信"
 msgid "Activate Your Account"
 msgstr "アカウントをアクティブ化する"
 
-#: help/templates/help.html:6 help/templates/help.html:42
-#: help/templates/help.html:59 jack/templates/base.html:31
+#: help/templates/help.html:6 help/templates/help.html:43
+#: help/templates/help.html:62 help/templates/help.html:79
+#: jack/templates/base.html:31
 msgid "Help"
 msgstr "ヘルプ"
 
@@ -268,11 +283,352 @@ msgstr "ヘルプ"
 msgid "Django-Jack"
 msgstr "Django-ジャック"
 
-#: jack/settings.py:160
+#: two_factor/admin.py:40
+msgid "Admin access requires two-factor authentication"
+msgstr "管理者アクセスには2要素認証が必要です"
+
+#: two_factor/forms.py:24
+msgid "Method"
+msgstr "方法"
+
+#: two_factor/forms.py:36 two_factor/forms.py:63
+msgid "Email Address"
+msgstr "メールアドレス"
+
+#: two_factor/forms.py:37 two_factor/forms.py:64
+msgid "Please provide a valid email address"
+msgstr "有効なメールアドレスを入力してください"
+
+#: two_factor/forms.py:59
+msgid "This email address is already in use."
+msgstr "この電子メールアドレスが既に使用されている。"
+
+#: two_factor/forms.py:96 two_factor/forms.py:121 two_factor/forms.py:189
+#: two_factor/forms.py:241
+msgid "Token"
+msgstr "トークン"
+
+#: two_factor/forms.py:106 two_factor/forms.py:132
+msgid "Invalid token."
+msgstr "無効なトークン。"
+
+#: two_factor/forms.py:185
+msgid "Yes, I am sure"
+msgstr "はい私は確信しています"
+
+#: two_factor/forms.py:221
+#, python-format
+msgid "Don't ask again on this device for %(minutes)i minutes"
+msgstr "このデバイスで%(minutes)i分間再度質問しないでください"
+
+#: two_factor/forms.py:224
+#, python-format
+msgid "Don't ask again on this device for %(hours)i hours"
+msgstr "このデバイスで%(hours)i時間は再度尋ねないでください"
+
+#: two_factor/forms.py:227
+#, python-format
+msgid "Don't ask again on this device for %(days)i days"
+msgstr "このデバイスで%(days)i日間再度質問しないでください"
+
+#: two_factor/models.py:20
+msgid "Email message"
+msgstr "メール"
+
+#: two_factor/models.py:25
+msgid "Token generator"
+msgstr "トークンアプリ"
+
+#: two_factor/templates/two_factor/_wizard_actions.html:7
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: two_factor/templates/two_factor/_wizard_actions.html:10
+#: two_factor/templates/two_factor/_wizard_actions.html:12
+msgid "Back"
+msgstr "戻る"
+
+#: two_factor/templates/two_factor/_wizard_actions.html:17
+msgid "Next"
+msgstr "次"
+
+#: two_factor/templates/two_factor/core/backup_tokens.html:7
+#: two_factor/templates/two_factor/profile/profile.html:37
+msgid "Backup Tokens"
+msgstr "バックアップトークン"
+
+#: two_factor/templates/two_factor/core/backup_tokens.html:8
+msgid ""
+"Backup tokens can be used when your primary and backup devices aren't "
+"available."
+msgstr ""
+"バックアップトークンは、プライマリデバイスとバックアップデバイスが利用できな"
+"い場合に使用できます。"
+
+#: two_factor/templates/two_factor/core/backup_tokens.html:10
+msgid "Only the backup tokens shown below are valid."
+msgstr "以下に示すバックアップトークンのみが有効です。"
+
+#: two_factor/templates/two_factor/core/backup_tokens.html:17
+msgid "Please print these tokens and keep them in a secure place."
+msgstr "これらのトークンを印刷して、安全な場所に保管してください。"
+
+#: two_factor/templates/two_factor/core/backup_tokens.html:19
+msgid "You don't have any backup tokens yet."
+msgstr "バックアップトークンはまだありません。"
+
+#: two_factor/templates/two_factor/core/backup_tokens.html:23
+msgid "Generate Tokens"
+msgstr "トークンを生成する"
+
+#: two_factor/templates/two_factor/core/backup_tokens.html:29
+#: two_factor/templates/two_factor/core/setup_complete.html:11
+#: two_factor/templates/two_factor/profile/disable.html:18
+msgid "Back to Account Security"
+msgstr "アカウントのセキュリティに戻る"
+
+#: two_factor/templates/two_factor/core/email_register.html:7
+msgid "Add Backup Email"
+msgstr "バックアップメールを追加する"
+
+#: two_factor/templates/two_factor/core/email_register.html:10
+msgid ""
+"Add a backup email to be used when your primary device is not available. "
+"This email address will be verified in the next step."
+msgstr ""
+"プライマリデバイスが利用できないときに使用するバックアップメールを追加しま"
+"す。 このメールアドレスは次のステップで確認されます。"
+
+#: two_factor/templates/two_factor/core/email_register.html:12
+#: two_factor/templates/two_factor/core/login.html:9
+#: two_factor/templates/two_factor/core/setup.html:29
+msgid "Please enter the token sent to your email."
+msgstr "メールに送信されたトークンを入力してください。"
+
+#: two_factor/templates/two_factor/core/login.html:11
+msgid "Please enter the token generated by your app."
+msgstr "アプリで生成されたトークンを入力してください。"
+
+#: two_factor/templates/two_factor/core/login.html:14
+msgid "Please enter one of your backup tokens to login."
+msgstr "ログインするには、バックアップトークンの1つを入力してください。"
+
+#: two_factor/templates/two_factor/core/login.html:25
+msgid "Send a token to one of your backup addresses:"
+msgstr "バックアップアドレスの1つにトークンを送信します："
+
+#: two_factor/templates/two_factor/core/login.html:35
+msgid "Use a backup token:"
+msgstr "バックアップトークンの使用："
+
+#: two_factor/templates/two_factor/core/login.html:37
+msgid "Use Backup Token"
+msgstr "バックアップトークンを使用する"
+
+#: two_factor/templates/two_factor/core/otp_required.html:7
+msgid "Permission Denied"
+msgstr "アクセス拒否"
+
+#: two_factor/templates/two_factor/core/otp_required.html:9
+msgid ""
+"The page you requested requires two-factor authentication.  Please enable "
+"two-factor authentication to access this page."
+msgstr ""
+"リクエストしたページには2要素認証が必要です。 このページにアクセスするには、2"
+"要素認証を有効にしてください。"
+
+#: two_factor/templates/two_factor/core/otp_required.html:12
+msgid "Go back"
+msgstr "戻る"
+
+#: two_factor/templates/two_factor/core/otp_required.html:14
+#: two_factor/templates/two_factor/core/setup.html:7
+#: two_factor/templates/two_factor/profile/profile.html:66
+msgid "Enable Two-Factor Authentication"
+msgstr "2要素認証を有効にする"
+
+#: two_factor/templates/two_factor/core/setup.html:9
+msgid ""
+"Please follow the steps in this wizard to enable two-factor authentication."
+msgstr "このウィザードの手順に従って、2要素認証を有効にしてください。"
+
+#: two_factor/templates/two_factor/core/setup.html:11
+msgid "Please select the authentication method you would like to use."
+msgstr "使用する認証方法を選択してください。"
+
+#: two_factor/templates/two_factor/core/setup.html:13
+msgid ""
+"Please scan the QR code below with an authentication app:</p> <ul> <li><a "
+"href=\"https://authy.com/download/\" target=\"_blank\">Authy</a></li> "
+"<li>Google Authenticator <small><a href=\"https://play.google.com/store/apps/"
+"details?id=com.google.android.apps.authenticator2\" target=\"_blank\">Google "
+"Play</a>・<a href=\"https://apps.apple.com/us/app/google-authenticator/"
+"id388497605\" target=\"_blank\">App Store</a></small></li> <li><a href="
+"\"https://www.microsoft.com/en-us/security/mobile-authenticator-app\" target="
+"\"_blank\">Microsoft Authenticator</a></li> </ul> <p>Enter the token "
+"generated by the app.</p>"
+msgstr ""
+"認証アプリで以下のQRコードをスキャンしてください：</p> <ul> <li><a href="
+"\"https://authy.com/download/\" target=\"_blank\">Authy</a></li> <li>Google "
+"Authenticator <small><a href=\"https://play.google.com/store/apps/details?"
+"id=com.google.android.apps.authenticator2\" target=\"_blank\">Google Play</"
+"a>・<a href=\"https://apps.apple.com/us/app/google-authenticator/"
+"id388497605\" target=\"_blank\">App Store</a></small></li> <li><a href="
+"\"https://www.microsoft.com/en-us/security/mobile-authenticator-app\" target="
+"\"_blank\">Microsoft Authenticator</a></li> </ul> <p>アプリによって生成された"
+"トークンを入力します。</p>"
+
+#: two_factor/templates/two_factor/core/setup.html:23
+msgid ""
+"Please enter the email address where you would like to receive your "
+"authentication tokens.</p> <p>This address will be validated in the next "
+"step."
+msgstr ""
+"認証トークンを受け取りたいメールアドレスを入力してください。</ p> <p>このアド"
+"レスは次のステップで検証されます。」"
+
+#: two_factor/templates/two_factor/core/setup.html:32
+msgid ""
+"We've encountered an issue with the selected authentication method. Please "
+"go back and verify that you entered your information correctly, try again, "
+"or use a different authentication method instead. If the issue persists, "
+"contact the site administrator."
+msgstr ""
+"選択した認証方法で問題が発生しました。 戻って情報を正しく入力したことを確認す"
+"るか、再試行するか、代わりに別の認証方法を使用してください。 問題が解決しない"
+"場合は、サイト管理者に連絡してください。"
+
+#: two_factor/templates/two_factor/core/setup_complete.html:9
+msgid "Two-factor authentication successfully enabled."
+msgstr "2要素認証が正常に有効になりました。"
+
+#: two_factor/templates/two_factor/core/setup_complete.html:14
+msgid ""
+"You may also add a backup email address in case you can't access your "
+"primary email."
+msgstr ""
+"メインのメールにアクセスできない場合に備えて、バックアップのメールアドレスを"
+"追加することもできます。"
+
+#: two_factor/templates/two_factor/core/setup_complete.html:16
+#: two_factor/templates/two_factor/profile/profile.html:35
+msgid "Add Backup Email Address"
+msgstr "バックアップメールアドレスを追加する"
+
+#: two_factor/templates/two_factor/profile/disable.html:7
+msgid "Disable Two-factor Authentication"
+msgstr "2要素認証を無効にする"
+
+#: two_factor/templates/two_factor/profile/disable.html:8
+msgid "Are you sure you'd like to disable two-factor authentication?"
+msgstr "2要素認証を無効にしてもよろしいですか？"
+
+#: two_factor/templates/two_factor/profile/disable.html:12
+msgid "Disable"
+msgstr "無効にする"
+
+#: two_factor/templates/two_factor/profile/profile.html:10
+msgid "Two-factor authentication is enabled for your account."
+msgstr "アカウントで2要素認証が有効になっています。"
+
+#: two_factor/templates/two_factor/profile/profile.html:11
+msgid "Primary Method"
+msgstr "主な方法"
+
+#: two_factor/templates/two_factor/profile/profile.html:13
+msgid "Tokens will be generated by your token generator."
+msgstr "トークンはトークンジェネレーターによって生成されます。"
+
+#: two_factor/templates/two_factor/profile/profile.html:15
+#, python-format
+msgid "%(primary)s"
+msgstr ""
+
+#: two_factor/templates/two_factor/profile/profile.html:18
+msgid "Backup Email"
+msgstr "バックアップメール"
+
+#: two_factor/templates/two_factor/profile/profile.html:20
+msgid ""
+"If your primary method is not available, tokens can be sent to the email "
+"addresses listed below."
+msgstr ""
+"主な方法が利用できない場合は、以下のメールアドレスにトークンを送信できます。"
+
+#: two_factor/templates/two_factor/profile/profile.html:22
+msgid ""
+"If your primary method is not available, tokens can sent to a backup email "
+"address."
+msgstr ""
+"主な方法が利用できない場合、トークンをバックアップの電子メールアドレスに送信"
+"できます。"
+
+#: two_factor/templates/two_factor/profile/profile.html:39
+msgid ""
+"If you can't access your primary or backup devices, you can access your "
+"account using backup tokens."
+msgstr ""
+"プライマリデバイスまたはバックアップデバイスにアクセスできない場合は、バック"
+"アップトークンを使用してアカウントにアクセスできます。"
+
+#: two_factor/templates/two_factor/profile/profile.html:43
+#, python-format
+msgid "You have only one backup token remaining."
+msgid_plural "You have %(counter)s backup tokens remaining."
+msgstr[0] "残りのバックアップトークンは1つだけです。"
+msgstr[1] "バックアップトークンが%(counter)s個残っています。"
+
+#: two_factor/templates/two_factor/profile/profile.html:50
+msgid "Show Backup Tokens"
+msgstr "バックアップトークンを表示する"
+
+#: two_factor/templates/two_factor/profile/profile.html:54
+msgid "Create Backup Tokens"
+msgstr "バックアップトークンを作成する"
+
+#: two_factor/templates/two_factor/profile/profile.html:58
+#: two_factor/templates/two_factor/profile/profile.html:61
+msgid "Disable Two-Factor Authentication"
+msgstr "二要素認証を無効にする"
+
+#: two_factor/templates/two_factor/profile/profile.html:59
+msgid ""
+"You can disable two-factor authentication if you lose access to your tokens "
+"or wish to change your primary method."
+msgstr ""
+"トークンにアクセスできなくなった場合、またはプライマリメソッドを変更したい場"
+"合は、2要素認証を無効にできます。"
+
+#: two_factor/templates/two_factor/profile/profile.html:63
+msgid ""
+"Two-factor authentication is not enabled for your account. Enable two-factor "
+"authentication for enhanced account security."
+msgstr ""
+"アカウントで2要素認証が有効になっていません。 アカウントのセキュリティを強化"
+"するために2要素認証を有効にします。"
+
+#: two_factor/templates/two_factor/profile/profile.html:72
+msgid "Back to profile"
+msgstr "プロファイルに戻る"
+
+#: two_factor/templatetags/two_factor.py:40
+#, python-format
+msgid "Send token to %s"
+msgstr "トークンを%sに送信します"
+
+#: two_factor/views/core.py:287
+msgid "Your session has timed out. Please login again."
+msgstr "あなたのセッションは時間切れです。 もう一度ログインしてください。"
+
+#: two_factor/views/utils.py:147
+msgid "ManagementForm data is missing or has been tampered with"
+msgstr "ManagementFormデータが欠落しているか、改ざんされています"
+
+#: jack/settings.py:171
 msgid "English"
 msgstr "英語"
 
-#: jack/settings.py:161
+#: jack/settings.py:172
 msgid "Japanese"
 msgstr "日本語"
 
@@ -300,30 +656,30 @@ msgstr "ログイン"
 msgid "Jack"
 msgstr "ジャック"
 
-#: jack/templates/index.html:41
+#: jack/templates/index.html:42
 msgid "Current UTC time is"
 msgstr "現在のUTC時刻は"
 
-#: jack/urls.py:23
+#: jack/urls.py:30
 msgid "Jack Admin"
 msgstr "アドミン"
 
-#: jack/views.py:24
+#: jack/views.py:23
 msgid "ERROR: This is just a test."
 msgstr "エラー：これはテストです。"
 
-#: jack/views.py:28
+#: jack/views.py:27
 msgid "Hiya Buddy 🌭"
 msgstr "やあバディ 🌭"
 
-#: jack/views.py:39
+#: jack/views.py:38
 msgid "Danger"
 msgstr "危険"
 
-#: jack/views.py:41
+#: jack/views.py:40
 msgid "You've successfully read this message."
 msgstr "このメッセージを正常に読みました。"
 
-#: jack/views.py:49
+#: jack/views.py:48
 msgid "Buddy"
 msgstr "バディ"
