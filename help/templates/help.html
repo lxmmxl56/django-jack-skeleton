@@ -35,39 +35,60 @@
 {% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="d-md-block sidebar collapse">
-        <nav class="navbar help-navbar navbar-dark bg-dark flex-column justify-content-start align-items-stretch p-3">
-            <div class="sidebar-sticky">
-                <a class="navbar-brand active" href="#">{% translate 'Help' %}</a>
-                <div id="helpNavbar">
-                    <nav class="nav nav-pills flex-column">
-                        {% for section in sections %}
-                        <a class="nav-link" href="#section-{{ section.id }}">{% if LANGUAGE_CODE == 'ja' and section.title_ja %}{{ section.title_ja }}{% else %}{{ section.title }}{% endif %}</a>
-                        <nav class="nav nav-pills flex-column mb-2">
-                            {% for item in section.helpitem_set.all %}
-                            <a class="nav-link ms-3" href="#item-{{ item.id }}">{% if LANGUAGE_CODE == 'ja' and item.title_ja %}{{ item.title_ja }}{% else %}{{ item.title }}{% endif %}</a>
+<div class="container my-3">
+    <div class="row">
+        <!-- <div class="d-md-block sidebar collapse">
+            <nav class="navbar help-navbar navbar-dark bg-dark flex-column justify-content-start align-items-stretch p-3">
+                <div class="sidebar-sticky">
+                    <a class="navbar-brand active" href="#">{% translate 'Help' %}</a>
+                    <div id="helpNavbar">
+                        <nav class="nav nav-pills flex-column">
+                            {% for section in sections %}
+                            <a class="nav-link" href="#section-{{ section.id }}">{% if LANGUAGE_CODE == 'ja' and section.title_ja %}{{ section.title_ja }}{% else %}{{ section.title }}{% endif %}</a>
+                            <nav class="nav nav-pills flex-column mb-2">
+                                {% for item in section.helpitem_set.all %}
+                                <a class="nav-link ms-3" href="#item-{{ item.id }}">{% if LANGUAGE_CODE == 'ja' and item.title_ja %}{{ item.title_ja }}{% else %}{{ item.title }}{% endif %}</a>
+                                {% endfor %}
+                            </nav>
                             {% endfor %}
                         </nav>
-                        {% endfor %}
-                    </nav>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </div>
-    <div class="col">
-        <h1>{% translate 'Help' %}</h1>
-        {% for section in sections %}
-        <span class="anchor" id="section-{{ section.id }}"></span>
-        <h2>{% if LANGUAGE_CODE == 'ja' and section.title_ja %}{{ section.title_ja }}{% else %}{{ section.title }}{% endif %}</h2>
-        <p>{% if LANGUAGE_CODE == 'ja' and section.content_ja %}{{ section.content_ja|safe }}{% else %}{{ section.content|safe }}{% endif %}</p>
-        {% for item in section.helpitem_set.all %}
-        <span class="anchor" id="item-{{ item.id }}"></span>
-        <h4>{% if LANGUAGE_CODE == 'ja' and item.title_ja %}{{ item.title_ja }}{% else %}{{ item.title }}{% endif %}</h4>
-        <p>{% if LANGUAGE_CODE == 'ja' and item.content_ja %}{{ item.content_ja|safe }}{% else %}{{ item.content|safe }}{% endif %}</p>
-        {% endfor %}
-        <hr>
-        {% endfor %}
+            </nav>
+        </div> -->
+        <div class="d-md-block sidebar collapse">
+            <nav class="navbar help-navbar navbar-dark bg-dark flex-column justify-content-start align-items-stretch p-3">
+                <div class="fixed-scroll no-scroll-bar">
+                    <a class="navbar-brand active" href="#">{% translate 'Help' %}</a>
+                    <div id="helpNavbar">
+                        <nav class="nav nav-pills flex-column">
+                            {% for section in sections %}
+                            <a class="nav-link" href="#section-{{ section.id }}">{% if LANGUAGE_CODE == 'ja' and section.title_ja %}{{ section.title_ja }}{% else %}{{ section.title }}{% endif %}</a>
+                            <nav class="nav nav-pills flex-column mb-2">
+                                {% for item in section.helpitem_set.all %}
+                                <a class="nav-link ms-3" href="#item-{{ item.id }}">{% if LANGUAGE_CODE == 'ja' and item.title_ja %}{{ item.title_ja }}{% else %}{{ item.title }}{% endif %}</a>
+                                {% endfor %}
+                            </nav>
+                            {% endfor %}
+                        </nav>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="helpText" class="col fixed-scroll">
+            <h1>{% translate 'Help' %}</h1>
+            {% for section in sections %}
+            <span class="anchor" id="section-{{ section.id }}"></span>
+            <h2>{% if LANGUAGE_CODE == 'ja' and section.title_ja %}{{ section.title_ja }}{% else %}{{ section.title }}{% endif %}</h2>
+            <p>{% if LANGUAGE_CODE == 'ja' and section.content_ja %}{{ section.content_ja|safe }}{% else %}{{ section.content|safe }}{% endif %}</p>
+            {% for item in section.helpitem_set.all %}
+            <span class="anchor" id="item-{{ item.id }}"></span>
+            <h4>{% if LANGUAGE_CODE == 'ja' and item.title_ja %}{{ item.title_ja }}{% else %}{{ item.title }}{% endif %}</h4>
+            <p>{% if LANGUAGE_CODE == 'ja' and item.content_ja %}{{ item.content_ja|safe }}{% else %}{{ item.content|safe }}{% endif %}</p>
+            {% endfor %}
+            <hr>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}

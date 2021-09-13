@@ -1,18 +1,31 @@
 .sidebar {
     width: auto;
-    min-height: calc(100vh - 56px - 2rem);
 }
 
-.sidebar-sticky {
+/*.sidebar-sticky {
     position: sticky;
     top: calc(56px + 2rem);
-}
+}*/
 
 .help-navbar {
-    min-height: 100%;
+    max-height: calc(100vh - 56px - 2rem);
 }
 
 .anchor {
-   position: relative;
-   top: calc(-56px - .5rem);
+    position: relative;
+    top: -.5rem;
+}
+
+.fixed-scroll {
+    overflow-y: scroll;
+    max-height: calc(100vh - 56px - 2rem);
+}
+
+.no-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scroll-bar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
