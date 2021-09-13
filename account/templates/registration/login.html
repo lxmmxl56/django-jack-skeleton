@@ -3,9 +3,9 @@
 
 {% block title %}{% translate 'Login' %}{% endblock %}
 
-{% block content %}
-account login
-    <div class="container mt-5">
+{% block contents %}
+<div class="row">
+    <div class="col-auto">
         <form method="post" class="mb-5 needs-validation" novalidate>
             {% csrf_token %}
             {% include 'includes/bs5_form.html' with form=form %}
@@ -14,8 +14,9 @@ account login
                     <div class="mb-3"><a href="{% url 'password_reset' %}">{% translate 'Forgot your password?' %}</a></div>
                     <div class="mb-3"><a href="{% url 'signup' %}">{% translate 'Create an account' %}</a></div>
                     <button type="submit" value="Submit" class="btn btn-primary">{% translate 'Submit' %}</button>
-                </div>
-            </div>
+                </div> <!-- .col-sm -->
+            </div> <!-- .row -->
         </form>
-    </div>
+    </div> <!-- .col-auto -->
+</div> <!-- .row -->
 {% endblock %}

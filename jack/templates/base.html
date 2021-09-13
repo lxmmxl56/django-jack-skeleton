@@ -83,25 +83,41 @@
                 {% if LANGUAGE_CODE and 'ja' == LANGUAGE_CODE %}<span class="badge bg-secondary">Ａ</span>  <span class="badge bg-light text-dark">あ</span>{% else %}<span class="badge bg-light text-dark">Ａ</span>  <span class="badge bg-secondary">あ</span>{% endif %}
               </button>
             </form>
-          </div>
+          </div> <!-- .d-inline-block -->
         </ul>
-      </div>
+      </div> <!-- .collapse -->
     </div> <!-- .container -->
   </nav>
-  <div class="container-fluid content mt-3">
-    <div id="alertBox" class="alerts mt-3">
+  <div class="content">
+    {% if alerts %}
+    <div id="alertBox" class="container alerts mt-3">
       {% for alert in alerts %}
       <div class="alert alert-{{ alert.tag }} alert-dismissible fade show" role="alert">
         {{ alert.message|safe }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+      </div> <!-- .alert -->
       {% endfor %}
-    </div>
-    <div id="mainContent" class="main-content mb-3">
+    </div> <!-- #alertBox -->
+    {% endif %}
+
+    {% if messages %}
+    <div id="messageBox" class="container messages mt-3">
+      {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message.message|safe }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div> <!-- .alert -->
+      {% endfor %}
+    </div> <!-- #messageBox -->
+    {% endif %}
+
+    <div id="mainContent" class="main-content">
       {% block content %}
       {% endblock %}
     </div>
-    <div class="toast-container position-absolute me-3 mb-3 end-0 bottom-0">
+
+    {% if toasts %}
+    <div id="toastBox" class="toast-container position-absolute me-3 mb-3 end-0 bottom-0">
       {% for toast in toasts %}
       <div class="toast{% if toast.classes %} {{ toast.classes }}{% endif %}" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
@@ -121,9 +137,10 @@
           {{ toast.body }}
         </div>
         {% endif %}
-      </div>
+      </div> <!-- .toast -->
       {% endfor %}
-    </div>
+    </div> <!-- #toastBox -->
+    {% endif %}
   </div>
   <script src="{% static 'js/lib/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'js/base.js' %}"></script>

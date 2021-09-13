@@ -3,12 +3,10 @@
 
 {% block title %}{% translate 'Sign up' %}{% endblock %}
 
-{% block content %}
-    <div class="container mt-5">
-            <div class="row">
-                <div class="col-sm">
-                    {% translate 'Please check your email for a confirmation link to complete your registration.' %}
-                </div>
-            </div>
-    </div>
+{% block contents %}
+<div class="row">
+    <div class="col-auto">
+        {% translate 'Please check your email for a confirmation link to complete your registration.' %}
+    </div> <!-- .col-auto -->
+</div> <!-- .row -->
 {% endblock %}

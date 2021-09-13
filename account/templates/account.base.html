@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static i18n %}
 
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
+
 {% block navbar-brand %}
 <a class="navbar-brand" href="{% url 'profile' %}">
     <svg class="icon" aria-hidden="true" focusable="false">
@@ -17,4 +21,11 @@
         {% translate 'Home' %}
     </a>
 </li>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    {% block contents %}
+    {% endblock %}
+</div> <!-- .container -->
 {% endblock %}

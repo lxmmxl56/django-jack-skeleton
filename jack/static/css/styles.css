@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  padding-top: 76px; /* padding top for nav height */
+  padding-top: 56px; /* padding top for nav height */
 }
 
 .icon {
@@ -23,7 +23,7 @@ body {
 }
 
 .navbar-brand .icon {
-  font-size: 40px;
+  font-size: 24px;
 }
 
 .main-content {

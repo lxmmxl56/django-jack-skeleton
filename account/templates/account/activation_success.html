@@ -3,11 +3,10 @@
 
 {% block title %}{% translate 'Sign up' %}{% endblock %}
 
-{% block content %}
-    <div class="container mt-5">
-            <div class="row">
-                <div class="col-sm">{% translate 'Activation successful.' %}  <a href="{% url 'login' %}">{% translate 'Please login' %}</a>{% translate '.' %}
-                </div>
-            </div>
-    </div>
+{% block contents %}
+<div class="row">
+    <div class="col-auto">
+        {% translate 'Activation successful.' %}  <a href="{% url 'login' %}">{% translate 'Please login' %}</a>{% translate '.' %}
+    </div> <!-- .col-auto -->
+</div> <!-- .row -->
 {% endblock %}
