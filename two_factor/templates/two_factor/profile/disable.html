@@ -1,23 +1,21 @@
 {% extends "account.base.html" %}
 {% load i18n %}
 
-{% block content %}
-<div class="container mt-5">
-  <div class="row">
+{% block contents %}
+<div class="row">
     <div class="col-auto">
-      <h1 class="fs-2">{% block title %}{% trans "Disable Two-factor Authentication" %}{% endblock %}</h1>
-      <p>{% blocktrans trimmed %}Are you sure you'd like to disable two-factor authentication?{% endblocktrans %}</p>
-      <form method="post">
-        {% csrf_token %}
-        {% include 'includes/bs5_form.html' with form=form %}
-        <button class="btn btn-danger" type="submit">{% trans "Disable" %}</button>
-      </form>
-    </div>
-  </div>
-  <div class="row mt-3">
+        <h1 class="fs-2">{% block title %}{% trans "Disable Two-factor Authentication" %}{% endblock %}</h1>
+        <p>{% blocktrans trimmed %}Are you sure you'd like to disable two-factor authentication?{% endblocktrans %}</p>
+        <form method="post">
+            {% csrf_token %}
+            {% include 'includes/bs5_form.html' with form=form %}
+            <button class="btn btn-danger" type="submit">{% trans "Disable" %}</button>
+        </form>
+    </div> <!-- .col-auto -->
+</div> <!-- .row -->
+<div class="row mt-3">
     <div class="col-auto">
-      <a href="{% url 'two_factor:profile'%}">{% trans "Back to Account Security" %}</a>
-    </div>
-  </div>
-</div>
+        <a href="{% url 'two_factor:profile'%}">{% trans "Back to Account Security" %}</a>
+    </div> <!-- .col-auto -->
+</div> <!-- .row -->
 {% endblock %}

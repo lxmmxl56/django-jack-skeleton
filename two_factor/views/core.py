@@ -349,7 +349,7 @@ class LoginView(SuccessURLAllowedHostsMixin, IdempotentSessionWizardView):
         #         DeprecationWarning)
         #     context['cancel_url'] =
 
-        context['cancel_url'] = resolve_url(settings.TWO_FACTOR_CANCEL_URL)
+        context['cancel_url'] = resolve_url('index')
         return context
 
     @cached_property
