@@ -1,10 +1,11 @@
 from django.conf import settings
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.contrib.admin import AdminSite
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.views import redirect_to_login
-from django.shortcuts import resolve_url
+from django.shortcuts import redirect, resolve_url
 from django.utils.http import is_safe_url
+from django.utils.translation import gettext_lazy as _
 
 from .models import EmailDevice
 from .utils import monkeypatch_method
@@ -36,7 +37,9 @@ class AdminSiteOTPRequiredMixin(object):
         # if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
         #     redirect_to = resolve_url('two_factor:setup')
 
-        return redirect_to_login(resolve_url('two_factor:setup'))
+        messages.warning(request, _('Admin access requires two-factor authentication'))
+
+        return redirect(resolve_url('two_factor:setup'))
 
 
 class AdminSiteOTPRequired(AdminSiteOTPRequiredMixin, AdminSite):
@@ -52,10 +55,11 @@ def patch_admin():
         """
         Redirects to the site login page for the given HttpRequest.
         """
-        # redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME, resolve_url('two_factor:setup')))
+        log.debug('patch login')
+        redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME, resolve_url('two_factor:setup')))
 
-        # if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
-        #     redirect_to = resolve_url('two_factor:setup')
+        if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
+            redirect_to = resolve_url('two_factor:setup')
 
         return redirect_to_login(resolve_url('two_factor:setup'))
 

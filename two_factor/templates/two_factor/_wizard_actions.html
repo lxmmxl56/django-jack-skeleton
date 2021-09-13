@@ -4,12 +4,16 @@
 <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
 {% else %}
 {% if cancel_url %}
-  <a href="{{ cancel_url }}" class="btn btn-outline-danger">{% trans "Cancel" %}</a>
+<a href="{{ cancel_url }}" class="btn btn-outline-danger">{% trans "Cancel" %}</a>
 {% endif %}
 {% if wizard.steps.prev %}
-  <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}"  class="btn btn-secondary">{% trans "Back" %}</button>
+<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}"  class="btn btn-secondary">{% trans "Back" %}</button>
 {% else %}
-  <button disabled name="" type="button" class="btn">{% trans "Back" %}</button>
+<button disabled name="" type="button" class="btn">{% trans "Back" %}</button>
 {% endif %}
+{% if wizard.steps.current == 'token' %}
+<button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+{% else %}
 <button type="submit" class="btn btn-primary">{% trans "Next" %}</button>
+{% endif %}
 {% endif %}
