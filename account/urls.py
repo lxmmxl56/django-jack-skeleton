@@ -18,8 +18,6 @@ urlpatterns = [
 
     # login / logout urls
     path('login/', LoginView.as_view(), name='login'),
-    # TODO: Remove
-    path('ologin/', auth_views.LoginView.as_view(), name='ologin'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
     # change password urls
