@@ -32,13 +32,13 @@ class AdminSiteOTPRequiredMixin(object):
         """
         Redirects to the site login page for the given HttpRequest.
         """
-        # redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME, resolve_url('two_factor:setup')))
+        redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
+        if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
+            redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
-        # if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
-        #     redirect_to = resolve_url('two_factor:setup')
-
+        if not request.user.is_authenticated:
+            return redirect_to_login(redirect_to)
         messages.warning(request, _('Admin access requires two-factor authentication'))
-
         return redirect(resolve_url('two_factor:setup'))
 
 
@@ -55,13 +55,15 @@ def patch_admin():
         """
         Redirects to the site login page for the given HttpRequest.
         """
-        log.debug('patch login')
-        redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME, resolve_url('two_factor:setup')))
+        redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
 
         if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
-            redirect_to = resolve_url('two_factor:setup')
+            redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
-        return redirect_to_login(resolve_url('two_factor:setup'))
+        if not request.user.is_authenticated:
+            return redirect_to_login(redirect_to)
+        messages.warning(request, _('Admin access requires two-factor authentication'))
+        return redirect(resolve_url('two_factor:setup'))
 
 
 def unpatch_admin():
