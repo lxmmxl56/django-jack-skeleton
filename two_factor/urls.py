@@ -1,16 +1,11 @@
 from django.urls import path
 
 from two_factor.views import (
-    BackupTokensView, DisableView, LoginView, EmailDeleteView, EmailSetupView,
+    BackupTokensView, DisableView, EmailDeleteView, EmailSetupView,
     ProfileView, QRGeneratorView, SetupCompleteView, SetupView,
 )
 
 core = [
-    # path(
-    #     'account/security/two_factor/login/',
-    #     LoginView.as_view(),
-    #     name='login',
-    # ),
     path(
         'account/security/two_factor/setup/',
         SetupView.as_view(),
