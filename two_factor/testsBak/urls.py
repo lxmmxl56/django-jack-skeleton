@@ -1,0 +1,88 @@
+from django.contrib.auth.views import LogoutView
+from django.urls import include, path
+
+from two_factor.urls import urlpatterns as tf_urls
+from two_factor.views import LoginView, ProfileView
+
+from .views import SecureView
+
+
+app_name = 'two_factor'
+urlpatterns = [
+    path(
+        'account/login/',
+        LoginView.as_view(),
+        name='login'
+    ),
+    path(
+        'account/logout/',
+        LogoutView.as_view(),
+        name='logout',
+    ),
+    path(
+        'account/security/',
+        ProfileView.as_view(),
+        name='index',
+    ),
+    path(
+        'account/security/',
+        ProfileView.as_view(),
+        name='help',
+    ),
+    path(
+        'account/security/',
+        ProfileView.as_view(),
+        name='signup',
+    ),
+    path(
+        'account/security/',
+        ProfileView.as_view(),
+        name='set_language',
+    ),
+    path(
+        'account/security/',
+        ProfileView.as_view(),
+        name='password_reset',
+    ),
+    path(
+        'account/security/',
+        ProfileView.as_view(),
+        name='profile',
+    ),
+    path(
+        'account/custom-field-name-login/',
+        LoginView.as_view(redirect_field_name='next_page'),
+        name='custom-field-name-login',
+    ),
+    path(
+        'account/custom-allowed-success-url-login/',
+        LoginView.as_view(
+            success_url_allowed_hosts={'test.allowed-success-url.com'}
+        ),
+        name='custom-allowed-success-url-login',
+    ),
+    path(
+        'account/custom-redirect-authenticated-user-login/',
+        LoginView.as_view(
+            redirect_authenticated_user=True
+        ),
+        name='custom-redirect-authenticated-user-login',
+    ),
+
+    path(
+        'secure/',
+        SecureView.as_view(),
+    ),
+    path(
+        'secure/raises/',
+        SecureView.as_view(raise_anonymous=True, raise_unverified=True),
+    ),
+    path(
+        'secure/redirect_unverified/',
+        SecureView.as_view(
+            raise_anonymous=True,
+            verification_url='/account/login/'
+        ),
+    ),
+    path('', include(tf_urls)),
+]
