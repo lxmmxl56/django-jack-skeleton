@@ -1,6 +1,6 @@
 # 💀 Jack  
 
-A Django 3 and Bootstrap 5 based skeleton project
+A Django 4 and Bootstrap 5 based skeleton project
 
 ## 🔑 Passwords & Keys  
 
