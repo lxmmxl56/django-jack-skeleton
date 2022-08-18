@@ -4,7 +4,7 @@ from django.contrib.admin import AdminSite
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import redirect, resolve_url
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 
 from .models import EmailDevice
@@ -33,7 +33,7 @@ class AdminSiteOTPRequiredMixin(object):
         Redirects to the site login page for the given HttpRequest.
         """
         redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
-        if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
+        if not redirect_to or not url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts=[request.get_host()]):
             redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
         if not request.user.is_authenticated:
@@ -57,7 +57,7 @@ def patch_admin():
         """
         redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
 
-        if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts=[request.get_host()]):
+        if not redirect_to or not url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts=[request.get_host()]):
             redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
         if not request.user.is_authenticated:
