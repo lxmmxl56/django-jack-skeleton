@@ -1,31 +1,30 @@
-.sidebar {
+.help-sidebar {
     width: auto;
+    min-height: calc(100vh - 9rem);
 }
 
-/*.sidebar-sticky {
-    position: sticky;
-    top: calc(56px + 2rem);
-}*/
-
 .help-navbar {
-    max-height: calc(100vh - 56px - 2rem);
+    position: sticky;
+    top: calc(56px + 1rem);
+    height: calc(100vh - 5.5rem);
+    overflow: hidden;
+    border-top: 1rem solid;
+    border-bottom: 1rem solid;
+    overflow-y: scroll;
+}
+
+.help-sidebar-menu {
+    position: relative;
 }
 
 .anchor {
-    position: relative;
-    top: -.5rem;
+   position: relative;
+   top: calc(-56px);
 }
 
-.fixed-scroll {
-    overflow-y: scroll;
-    max-height: calc(100vh - 56px - 2rem);
-}
-
-.no-scroll-bar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scroll-bar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+.help-offcanvas-toggler {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1;
 }
