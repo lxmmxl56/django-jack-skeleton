@@ -42,6 +42,8 @@ class AdminSiteOTPRequiredMixin(object):
 
         if not request.user.is_authenticated:
             return redirect_to_login(redirect_to)
+        if not request.user.is_staff:
+            return redirect(resolve_url('index'))
         messages.warning(request, _('Admin access requires two-factor authentication'))
         return redirect(resolve_url('two_factor:setup'))
 
