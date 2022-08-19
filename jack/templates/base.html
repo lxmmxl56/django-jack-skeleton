@@ -112,9 +112,11 @@
     {% endif %}
 
     <div id="mainContent" class="main-content">
-      {% block content %}
-      {% endblock %}
-    </div>
+      <div class="container mt-3">
+        {% block content %}
+        {% endblock %}
+      </div> <!-- .container -->
+    </div> <!-- .main-content -->
 
     {% if toasts %}
     <div id="toastBox" class="toast-container position-absolute me-3 mb-3 end-0 bottom-0">
