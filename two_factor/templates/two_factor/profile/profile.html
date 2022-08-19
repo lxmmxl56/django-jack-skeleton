@@ -19,7 +19,7 @@
         {% if backup_emails %}
         <p>{% blocktrans trimmed %}If your primary method is not available, tokens can be sent to the email addresses listed below.{% endblocktrans %}</p>
         {% else %}
-        <p>{% blocktrans trimmed %}If your primary method is not available, tokens can sent to a backup email address.{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed %}If your primary method is not available, tokens can be sent to a backup email address.{% endblocktrans %}</p>
         {% endif %}
         <ul>
             {% for email in backup_emails %}

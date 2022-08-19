@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-13 04:48+0000\n"
+"POT-Creation-Date: 2022-08-19 06:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,11 +26,11 @@ msgstr "プロフィール"
 msgid "profiles"
 msgstr "プロフィール"
 
-#: account/admin.py:23
+#: account/admin.py:24
 msgid "email confirmed"
 msgstr "メール確認"
 
-#: account/forms.py:8
+#: account/forms.py:11
 msgid "Required. Provide a valid email address for account confirmation."
 msgstr "必須。有効なメールアドレスを入力してください"
 
@@ -89,7 +89,7 @@ msgstr "以下のURLにアクセスして、登録を確認してください。
 msgid "Profile"
 msgstr "プロフィール"
 
-#: account/templates/account/profile.html:10 jack/views.py:46
+#: account/templates/account/profile.html:10 jack/views.py:40
 msgid "Hiya"
 msgstr "やあ"
 
@@ -107,8 +107,7 @@ msgid "Account Security"
 msgstr "アカウントのセキュリティ"
 
 #: account/templates/account/profile.html:26
-#: two_factor/templates/two_factor/core/setup_complete.html:7
-msgid "Two-Factor Authentication"
+msgid "Two-Factor authentication"
 msgstr "2要素認証"
 
 #: account/templates/account/signup.html:12
@@ -269,13 +268,12 @@ msgstr "パスワード再設定リンクの受信用メールアドレスを入
 msgid "Send"
 msgstr "送信"
 
-#: account/views.py:35
+#: account/views.py:34
 msgid "Activate Your Account"
 msgstr "アカウントをアクティブ化する"
 
 #: help/templates/help.html:6 help/templates/help.html:43
-#: help/templates/help.html:62 help/templates/help.html:79
-#: jack/templates/base.html:31
+#: help/templates/help.html:82 jack/templates/base.html:31
 msgid "Help"
 msgstr "ヘルプ"
 
@@ -283,59 +281,59 @@ msgstr "ヘルプ"
 msgid "Django-Jack"
 msgstr "Django-ジャック"
 
-#: two_factor/admin.py:40
+#: two_factor/admin.py:45 two_factor/admin.py:74
 msgid "Admin access requires two-factor authentication"
 msgstr "管理者アクセスには2要素認証が必要です"
 
-#: two_factor/forms.py:24
+#: two_factor/forms.py:22
 msgid "Method"
 msgstr "方法"
 
-#: two_factor/forms.py:36 two_factor/forms.py:63
+#: two_factor/forms.py:32 two_factor/forms.py:61
 msgid "Email Address"
 msgstr "メールアドレス"
 
-#: two_factor/forms.py:37 two_factor/forms.py:64
+#: two_factor/forms.py:33 two_factor/forms.py:62
 msgid "Please provide a valid email address"
 msgstr "有効なメールアドレスを入力してください"
 
-#: two_factor/forms.py:59
+#: two_factor/forms.py:57
 msgid "This email address is already in use."
 msgstr "この電子メールアドレスが既に使用されている。"
 
-#: two_factor/forms.py:96 two_factor/forms.py:121 two_factor/forms.py:189
-#: two_factor/forms.py:241
+#: two_factor/forms.py:99 two_factor/forms.py:126 two_factor/forms.py:196
+#: two_factor/forms.py:254
 msgid "Token"
 msgstr "トークン"
 
-#: two_factor/forms.py:106 two_factor/forms.py:132
+#: two_factor/forms.py:111 two_factor/forms.py:139
 msgid "Invalid token."
 msgstr "無効なトークン。"
 
-#: two_factor/forms.py:185
+#: two_factor/forms.py:192
 msgid "Yes, I am sure"
 msgstr "はい私は確信しています"
 
-#: two_factor/forms.py:221
+#: two_factor/forms.py:230
 #, python-format
 msgid "Don't ask again on this device for %(minutes)i minutes"
 msgstr "このデバイスで%(minutes)i分間再度質問しないでください"
 
-#: two_factor/forms.py:224
+#: two_factor/forms.py:235
 #, python-format
 msgid "Don't ask again on this device for %(hours)i hours"
 msgstr "このデバイスで%(hours)i時間は再度尋ねないでください"
 
-#: two_factor/forms.py:227
+#: two_factor/forms.py:240
 #, python-format
 msgid "Don't ask again on this device for %(days)i days"
 msgstr "このデバイスで%(days)i日間再度質問しないでください"
 
-#: two_factor/models.py:20
+#: two_factor/models.py:19
 msgid "Email message"
 msgstr "メール"
 
-#: two_factor/models.py:25
+#: two_factor/models.py:24
 msgid "Token generator"
 msgstr "トークンアプリ"
 
@@ -498,6 +496,10 @@ msgstr ""
 "るか、再試行するか、代わりに別の認証方法を使用してください。 問題が解決しない"
 "場合は、サイト管理者に連絡してください。"
 
+#: two_factor/templates/two_factor/core/setup_complete.html:7
+msgid "Two-Factor Authentication"
+msgstr "2要素認証"
+
 #: two_factor/templates/two_factor/core/setup_complete.html:9
 msgid "Two-factor authentication successfully enabled."
 msgstr "2要素認証が正常に有効になりました。"
@@ -557,8 +559,8 @@ msgstr ""
 
 #: two_factor/templates/two_factor/profile/profile.html:22
 msgid ""
-"If your primary method is not available, tokens can sent to a backup email "
-"address."
+"If your primary method is not available, tokens can be sent to a backup "
+"email address."
 msgstr ""
 "主な方法が利用できない場合、トークンをバックアップの電子メールアドレスに送信"
 "できます。"
@@ -616,19 +618,19 @@ msgstr "プロファイルに戻る"
 msgid "Send token to %s"
 msgstr "トークンを%sに送信します"
 
-#: two_factor/views/core.py:287
+#: two_factor/views/core.py:285
 msgid "Your session has timed out. Please login again."
 msgstr "あなたのセッションは時間切れです。 もう一度ログインしてください。"
 
-#: two_factor/views/utils.py:147
+#: two_factor/views/utils.py:153
 msgid "ManagementForm data is missing or has been tampered with"
 msgstr "ManagementFormデータが欠落しているか、改ざんされています"
 
-#: jack/settings.py:171
+#: jack/settings.py:170
 msgid "English"
 msgstr "英語"
 
-#: jack/settings.py:172
+#: jack/settings.py:171
 msgid "Japanese"
 msgstr "日本語"
 
@@ -660,26 +662,26 @@ msgstr "ジャック"
 msgid "Current UTC time is"
 msgstr "現在のUTC時刻は"
 
-#: jack/urls.py:30
+#: jack/urls.py:34
 msgid "Jack Admin"
 msgstr "アドミン"
 
-#: jack/views.py:23
+#: jack/views.py:21
 msgid "ERROR: This is just a test."
 msgstr "エラー：これはテストです。"
 
-#: jack/views.py:27
+#: jack/views.py:22
 msgid "Hiya Buddy 🌭"
 msgstr "やあバディ 🌭"
 
-#: jack/views.py:38
+#: jack/views.py:32
 msgid "Danger"
 msgstr "危険"
 
-#: jack/views.py:40
+#: jack/views.py:34
 msgid "You've successfully read this message."
 msgstr "このメッセージを正常に読みました。"
 
-#: jack/views.py:48
+#: jack/views.py:42
 msgid "Buddy"
 msgstr "バディ"
