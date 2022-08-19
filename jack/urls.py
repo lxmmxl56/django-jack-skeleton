@@ -5,10 +5,10 @@ from django.contrib import admin
 from django.urls import include, path
 from django.utils.translation import gettext_lazy as _
 
-from . import views
-
-from two_factor.urls import urlpatterns as tf_urls
 from two_factor.admin import AdminSiteOTPRequired
+from two_factor.urls import urlpatterns as tf_urls
+
+from . import views
 
 if settings.ADMIN_SITE_OTP_REQUIRED:
     admin.site.__class__ = AdminSiteOTPRequired
@@ -16,7 +16,11 @@ if settings.ADMIN_SITE_OTP_REQUIRED:
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('media/<str:filename>/', views.restricted_media, name="restricted_media"),
-    path('media/<str:filename>/<int:download>/', views.restricted_media, name="restricted_media"),
+    path(
+        'media/<str:filename>/<int:download>/',
+        views.restricted_media,
+        name="restricted_media",
+    ),
 ]
 
 urlpatterns += i18n_patterns(

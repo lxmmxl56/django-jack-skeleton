@@ -23,11 +23,14 @@ class ProfileView(TemplateView):
     account. If two-factor is enabled, it also lists the primary verification
     method and backup verification methods.
     """
+
     template_name = 'two_factor/profile/profile.html'
 
     def get_context_data(self, **kwargs):
         try:
-            backup_tokens = self.request.user.staticdevice_set.all()[0].token_set.count()
+            backup_tokens = self.request.user.staticdevice_set.all()[
+                0
+            ].token_set.count()
         except Exception:
             backup_tokens = 0
 
@@ -45,6 +48,7 @@ class DisableView(FormView):
     """
     View for disabling two-factor for a user's account.
     """
+
     template_name = 'two_factor/profile/disable.html'
     success_url = lazy(resolve_url, str)(settings.TWO_FACTOR_CANCEL_URL)
     form_class = DisableForm
@@ -53,7 +57,9 @@ class DisableView(FormView):
         # We call otp_required here because we want to use self.success_url as
         # the login_url. Using it as a class decorator would make it difficult
         # for users who wish to override this property
-        fn = otp_required(super().dispatch, login_url=self.success_url, redirect_field_name=None)
+        fn = otp_required(
+            super().dispatch, login_url=self.success_url, redirect_field_name=None
+        )
         return fn(*args, **kwargs)
 
     def form_valid(self, form):

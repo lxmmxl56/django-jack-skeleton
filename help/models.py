@@ -8,6 +8,9 @@ class HelpSection(models.Model):
     content_ja = models.TextField(blank=True, null=True)
     sort = models.IntegerField(default=0)
 
+    class Meta:
+        ordering = ['id']
+
 
 class HelpItem(models.Model):
     section = models.ForeignKey(HelpSection, models.SET_NULL, blank=True, null=True)
@@ -16,3 +19,6 @@ class HelpItem(models.Model):
     content = models.TextField(blank=True, null=True)
     content_ja = models.TextField(blank=True, null=True)
     sort = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['id']

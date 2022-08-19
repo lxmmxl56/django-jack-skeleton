@@ -1,18 +1,17 @@
-from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth.models import User
-from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.template.loader import render_to_string
+import logging
+
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
+from django.shortcuts import HttpResponse, redirect, render
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.translation import gettext_lazy as _
 
 from .forms import SignUpForm
 from .token import account_activation_token
-
-import logging
-from django.conf import settings
-
 
 log = logging.getLogger(settings.DEBUG_LOGGER)
 
@@ -33,12 +32,15 @@ def signup(request):
                 user.save()
             current_site = get_current_site(request)
             subject = _('Activate Your Account')
-            message = render_to_string('account/mail/activation_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
+            message = render_to_string(
+                'account/mail/activation_email.html',
+                {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                },
+            )
             user.email_user(subject, message)
             return redirect('activation_sent')
         else:

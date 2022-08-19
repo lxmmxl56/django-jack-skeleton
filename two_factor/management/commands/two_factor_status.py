@@ -17,6 +17,7 @@ class Command(BaseCommand):
         bouke: enabled
         steve: disabled
     """
+
     help = 'Checks two-factor authentication status for the given users'
 
     def add_arguments(self, parser):
@@ -30,7 +31,10 @@ class Command(BaseCommand):
             except User.DoesNotExist:
                 raise CommandError('User "%s" does not exist' % username)
 
-            self.stdout.write('%s: %s' % (
-                username,
-                'enabled' if default_device(user) else self.style.ERROR('disabled')
-            ))
+            self.stdout.write(
+                '%s: %s'
+                % (
+                    username,
+                    'enabled' if default_device(user) else self.style.ERROR('disabled'),
+                )
+            )

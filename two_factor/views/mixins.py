@@ -14,6 +14,7 @@ class OTPRequiredMixin(object):
     .. note::
        This mixin should be the left-most base class.
     """
+
     raise_anonymous = False
     """
     Whether to raise PermissionDenied if the user isn't logged in.
@@ -56,8 +57,11 @@ class OTPRequiredMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
         log.debug(dispatch)
-        if not request.user or not request.user.is_authenticated or \
-                (not request.user.is_verified() and default_device(request.user)):
+        if (
+            not request.user
+            or not request.user.is_authenticated
+            or (not request.user.is_verified() and default_device(request.user))
+        ):
             # If the user has not authenticated raise or redirect to the login
             # page. Also if the user just enabled two-factor authentication and
             # has not yet logged in since should also have the same result. If
@@ -73,7 +77,9 @@ class OTPRequiredMixin(object):
             if self.raise_unverified:
                 raise PermissionDenied()
             elif self.get_verification_url():
-                return redirect_to_login(request.get_full_path(), self.get_verification_url())
+                return redirect_to_login(
+                    request.get_full_path(), self.get_verification_url()
+                )
             else:
                 return TemplateResponse(
                     request=request,

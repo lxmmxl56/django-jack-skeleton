@@ -10,7 +10,6 @@ from django_otp.util import hex_validator, random_hex
 
 from .gateways import send_email
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -36,6 +35,7 @@ class EmailDevice(Device):
     """
     Model with email address and token seed linked to a user.
     """
+
     class Meta:
         app_label = 'two_factor'
 
@@ -44,7 +44,7 @@ class EmailDevice(Device):
         max_length=40,
         validators=[key_validator],
         default=random_hex,
-        help_text="Hex-encoded secret key"
+        help_text="Hex-encoded secret key",
     )
     method = 'email'
 

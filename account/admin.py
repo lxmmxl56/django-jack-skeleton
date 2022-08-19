@@ -20,6 +20,7 @@ class CustomUserAdmin(UserAdmin):
 
     def email_confirmed(self, instance):
         return instance.profile.email_confirmed
+
     email_confirmed.short_description = _('email confirmed')
 
     def get_inline_instances(self, request, obj=None):

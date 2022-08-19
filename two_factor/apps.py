@@ -9,4 +9,5 @@ class TwoFactorConfig(AppConfig):
     def ready(self):
         if getattr(settings, 'TWO_FACTOR_PATCH_ADMIN', True):
             from .admin import patch_admin
+
             patch_admin()

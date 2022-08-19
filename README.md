@@ -28,6 +28,22 @@ coverage run --source='.' manage.py test --parallel
 
 To see the coverage run `coverage html` and then open `htmlcov/index.html` to see the report.
 
+## 📰 Formatting
+
+Run isort first to optimize imports and then Black so that import formatting will be consistent.
+
+### 📦 isort
+
+```
+isort .
+```
+
+### ⚫ Black
+
+```
+black . -S
+```
+
 ## 🤖 Cron jobs  
 
 ### 🆑 Clear sessions  

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import HelpSection, HelpItem
+from .models import HelpItem, HelpSection
 
 
 class HelpSectionAdmin(admin.ModelAdmin):

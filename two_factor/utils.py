@@ -33,10 +33,7 @@ def get_otpauth_url(accountname, secret, issuer=None, digits=None):
 
     # Ensure that the secret parameter is the FIRST parameter of the URI, this
     # allows Microsoft Authenticator to work.
-    query = [
-        ('secret', secret),
-        ('digits', digits or totp_digits())
-    ]
+    query = [('secret', secret), ('digits', digits or totp_digits())]
 
     if issuer:
         query.append(('issuer', issuer))
@@ -49,6 +46,7 @@ def monkeypatch_method(cls):
     def decorator(func):
         setattr(cls, func.__name__, func)
         return func
+
     return decorator
 
 

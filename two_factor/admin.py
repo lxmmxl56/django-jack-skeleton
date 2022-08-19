@@ -32,8 +32,12 @@ class AdminSiteOTPRequiredMixin(object):
         """
         Redirects to the site login page for the given HttpRequest.
         """
-        redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
-        if not redirect_to or not url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts=[request.get_host()]):
+        redirect_to = request.POST.get(
+            REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME)
+        )
+        if not redirect_to or not url_has_allowed_host_and_scheme(
+            url=redirect_to, allowed_hosts=[request.get_host()]
+        ):
             redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
         if not request.user.is_authenticated:
@@ -46,6 +50,7 @@ class AdminSiteOTPRequired(AdminSiteOTPRequiredMixin, AdminSite):
     """
     AdminSite enforcing OTP verified staff users.
     """
+
     pass
 
 
@@ -55,9 +60,13 @@ def patch_admin():
         """
         Redirects to the site login page for the given HttpRequest.
         """
-        redirect_to = request.POST.get(REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME))
+        redirect_to = request.POST.get(
+            REDIRECT_FIELD_NAME, request.GET.get(REDIRECT_FIELD_NAME)
+        )
 
-        if not redirect_to or not url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts=[request.get_host()]):
+        if not redirect_to or not url_has_allowed_host_and_scheme(
+            url=redirect_to, allowed_hosts=[request.get_host()]
+        ):
             redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
         if not request.user.is_authenticated:
@@ -78,6 +87,7 @@ class EmailDeviceAdmin(admin.ModelAdmin):
     :class:`~django.contrib.admin.ModelAdmin` for
     :class:`~two_factor.models.EmailDevice`.
     """
+
     raw_id_fields = ('user',)
 
 

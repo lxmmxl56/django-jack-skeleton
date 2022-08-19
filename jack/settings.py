@@ -61,9 +61,7 @@ else:
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-ADMINS = (
-    ('jack.admin', 'jack-admin@email.com'),
-)
+ADMINS = (('jack.admin', 'jack-admin@email.com'),)
 
 # Application definition
 INSTALLED_APPS = [
@@ -167,9 +165,10 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en'
 LANGUAGE_COOKIE_NAME = 'jack_language'
 from django.utils.translation import gettext_lazy as _
+
 LANGUAGES = [
-  ('en', _('English')),
-  ('ja', _('Japanese')),
+    ('en', _('English')),
+    ('ja', _('Japanese')),
 ]
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'jack/locale/'),
@@ -201,9 +200,7 @@ LOGGING = {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
         },
-        'simple': {
-            'format': '%(levelname)s %(asctime)s %(message)s'
-        },
+        'simple': {'format': '%(levelname)s %(asctime)s %(message)s'},
     },
     'filters': {
         'require_debug_true': {
@@ -218,17 +215,17 @@ LOGGING = {
             'level': 'DEBUG',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'simple',
         },
         'mail_admins': {
             'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
+            'class': 'django.utils.log.AdminEmailHandler',
         },
         'debug_file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': BASE_DIR + '/logs/debug.log',
-            'formatter': 'simple'
+            'formatter': 'simple',
         },
     },
     'loggers': {
@@ -243,7 +240,9 @@ LOGGING = {
         },
         'django.db.backends': {
             'level': 'INFO',
-            'handlers': ['console', ],
+            'handlers': [
+                'console',
+            ],
             'propagate': True,
         },
         'debug_logger': {
@@ -251,7 +250,7 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-    }
+    },
 }
 
 if DJANGO_HOST == LOCAL:

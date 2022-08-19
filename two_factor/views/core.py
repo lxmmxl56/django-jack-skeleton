@@ -39,20 +39,28 @@ from two_factor.models import get_available_methods
 from two_factor.utils import totp_digits
 
 from ..forms import (
-    AuthenticationTokenForm, BackupTokenForm, DeviceValidationForm, MethodForm,
-    EmailForm, BackupEmailForm, TOTPDeviceForm,
+    AuthenticationTokenForm,
+    BackupEmailForm,
+    BackupTokenForm,
+    DeviceValidationForm,
+    EmailForm,
+    MethodForm,
+    TOTPDeviceForm,
 )
 from ..models import EmailDevice, get_available_email_methods
 from ..utils import backup_emails, default_device, get_otpauth_url
 from .utils import (
-    IdempotentSessionWizardView, class_view_decorator,
-    get_remember_device_cookie, validate_remember_device_cookie,
+    IdempotentSessionWizardView,
+    class_view_decorator,
+    get_remember_device_cookie,
+    validate_remember_device_cookie,
 )
-
 
 logger = logging.getLogger(__name__)
 
-REMEMBER_COOKIE_PREFIX = getattr(settings, 'TWO_FACTOR_REMEMBER_COOKIE_PREFIX', 'remember-cookie_')
+REMEMBER_COOKIE_PREFIX = getattr(
+    settings, 'TWO_FACTOR_REMEMBER_COOKIE_PREFIX', 'remember-cookie_'
+)
 
 
 @class_view_decorator(sensitive_post_parameters())
@@ -68,6 +76,7 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
     user is asked to provide the generated token. The backup devices are also
     listed, allowing the user to select a backup device for verification.
     """
+
     template_name = 'two_factor/core/login.html'
     form_list = (
         ('auth', AuthenticationForm),
@@ -82,16 +91,13 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
     storage_name = 'two_factor.views.utils.LoginStorage'
 
     def has_token_step(self):
-        return (
-            default_device(self.get_user()) and
-            not self.remember_agent
-        )
+        return default_device(self.get_user()) and not self.remember_agent
 
     def has_backup_step(self):
         return (
-            default_device(self.get_user()) and
-            'token' not in self.storage.validated_step_data and
-            not self.remember_agent
+            default_device(self.get_user())
+            and 'token' not in self.storage.validated_step_data
+            and not self.remember_agent
         )
 
     @cached_property
@@ -99,7 +105,9 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
         login_timeout = getattr(settings, 'TWO_FACTOR_LOGIN_TIMEOUT', 600)
         if login_timeout == 0:
             return False
-        expiration_time = self.storage.data.get("authentication_time", 0) + login_timeout
+        expiration_time = (
+            self.storage.data.get("authentication_time", 0) + login_timeout
+        )
         return int(time.time()) > expiration_time
 
     condition_dict = {
@@ -126,8 +134,10 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
             self.storage.reset()
 
         if self.expired and self.steps.current != 'auth':
-            logger.info("User's authentication flow has timed out. The user "
-                        "has been redirected to the initial auth form.")
+            logger.info(
+                "User's authentication flow has timed out. The user "
+                "has been redirected to the initial auth form."
+            )
             self.storage.reset()
             self.show_timeout_error = True
             return self.render_goto_step('auth')
@@ -146,7 +156,9 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
 
         # Check if remember cookie should be set after login
         current_step_data = self.storage.get_step_data(self.steps.current)
-        remember = bool(current_step_data and current_step_data.get('token-remember') == 'on')
+        remember = bool(
+            current_step_data and current_step_data.get('token-remember') == 'on'
+        )
 
         login(self.request, self.get_user())
 
@@ -160,7 +172,7 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
                 sender=__name__,
                 request=self.request,
                 user=self.get_user(),
-                device=device
+                device=device,
             )
 
             # Set a remember cookie if activated
@@ -168,36 +180,23 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
             if getattr(settings, 'TWO_FACTOR_REMEMBER_COOKIE_AGE', None) and remember:
                 # choose a unique cookie key to remember devices for multiple users in the same browser
                 cookie_key = REMEMBER_COOKIE_PREFIX + str(uuid4())
-                cookie_value = get_remember_device_cookie(user=self.get_user(),
-                                                          otp_device_id=device.persistent_id)
+                cookie_value = get_remember_device_cookie(
+                    user=self.get_user(), otp_device_id=device.persistent_id
+                )
                 response.set_cookie(
                     cookie_key,
                     cookie_value,
                     max_age=settings.TWO_FACTOR_REMEMBER_COOKIE_AGE,
-                    domain=getattr(
-                        settings,
-                        'TWO_FACTOR_REMEMBER_COOKIE_DOMAIN',
-                        None
-                    ),
-                    path=getattr(
-                        settings,
-                        'TWO_FACTOR_REMEMBER_COOKIE_PATH',
-                        '/'
-                    ),
+                    domain=getattr(settings, 'TWO_FACTOR_REMEMBER_COOKIE_DOMAIN', None),
+                    path=getattr(settings, 'TWO_FACTOR_REMEMBER_COOKIE_PATH', '/'),
                     secure=getattr(
-                        settings,
-                        'TWO_FACTOR_REMEMBER_COOKIE_SECURE',
-                        False
+                        settings, 'TWO_FACTOR_REMEMBER_COOKIE_SECURE', False
                     ),
                     httponly=getattr(
-                        settings,
-                        'TWO_FACTOR_REMEMBER_COOKIE_HTTPONLY',
-                        True
+                        settings, 'TWO_FACTOR_REMEMBER_COOKIE_HTTPONLY', True
                     ),
                     samesite=getattr(
-                        settings,
-                        'TWO_FACTOR_REMEMBER_COOKIE_SAMESITE',
-                        'Lax'
+                        settings, 'TWO_FACTOR_REMEMBER_COOKIE_SAMESITE', 'Lax'
                     ),
                 )
 
@@ -214,8 +213,7 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
     def get_redirect_url(self):
         """Return the user-originating redirect URL if it's safe."""
         redirect_to = self.request.POST.get(
-            self.redirect_field_name,
-            self.request.GET.get(self.redirect_field_name, '')
+            self.redirect_field_name, self.request.GET.get(self.redirect_field_name, '')
         )
         url_is_safe = url_has_allowed_host_and_scheme(
             url=redirect_to,
@@ -229,9 +227,7 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
         AuthenticationTokenForm requires the user kwarg.
         """
         if step == 'auth':
-            return {
-                'request': self.request
-            }
+            return {'request': self.request}
         if step in ('token', 'backup'):
             return {
                 'user': self.get_user(),
@@ -284,7 +280,10 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
         form = super().get_form(*args, **kwargs)
         if self.show_timeout_error:
             form.cleaned_data = getattr(form, 'cleaned_data', {})
-            form.add_error(None, ValidationError(_('Your session has timed out. Please login again.')))
+            form.add_error(
+                None,
+                ValidationError(_('Your session has timed out. Please login again.')),
+            )
         return form
 
     def get_device(self, step=None):
@@ -300,7 +299,9 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
                         break
             if step == 'backup':
                 try:
-                    self.device_cache = self.get_user().staticdevice_set.get(name='backup')
+                    self.device_cache = self.get_user().staticdevice_set.get(
+                        name='backup'
+                    )
                 except StaticDevice.DoesNotExist:
                     pass
             if not self.device_cache:
@@ -332,11 +333,16 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
         if self.steps.current == 'token':
             context['device'] = self.get_device()
             context['other_devices'] = [
-                email for email in backup_emails(self.get_user())
-                if email != self.get_device()]
+                email
+                for email in backup_emails(self.get_user())
+                if email != self.get_device()
+            ]
             try:
-                context['backup_tokens'] = self.get_user().staticdevice_set\
-                    .get(name='backup').token_set.count()
+                context['backup_tokens'] = (
+                    self.get_user()
+                    .staticdevice_set.get(name='backup')
+                    .token_set.count()
+                )
             except StaticDevice.DoesNotExist:
                 context['backup_tokens'] = 0
 
@@ -368,9 +374,7 @@ class LoginView(RedirectURLMixin, IdempotentSessionWizardView):
                     verify_is_allowed, extra = device.verify_is_allowed()
                     try:
                         if verify_is_allowed and validate_remember_device_cookie(
-                                value,
-                                user=user,
-                                otp_device_id=device.persistent_id
+                            value, user=user, otp_device_id=device.persistent_id
                         ):
                             user.otp_device = device
                             device.throttle_reset()
@@ -420,6 +424,7 @@ class SetupView(IdempotentSessionWizardView):
     is asked to provide a generated token. For email method, the user
     provides the address which is then validated in the final step.
     """
+
     success_url = 'two_factor:setup_complete'
     qrcode_url = 'two_factor:qr'
     template_name = 'two_factor/core/setup.html'
@@ -509,23 +514,23 @@ class SetupView(IdempotentSessionWizardView):
     def get_form_kwargs(self, step=None):
         kwargs = {}
         if step == 'generator':
-            kwargs.update({
-                'key': self.get_key(step),
-                'user': self.request.user,
-            })
+            kwargs.update(
+                {
+                    'key': self.get_key(step),
+                    'user': self.request.user,
+                }
+            )
         if step == 'email':
-            kwargs.update({
-                'user': self.request.user
-            })
+            kwargs.update({'user': self.request.user})
         if step == 'validation':
-            kwargs.update({
-                'device': self.get_device()
-            })
+            kwargs.update({'device': self.get_device()})
         metadata = self.get_form_metadata(step)
         if metadata:
-            kwargs.update({
-                'metadata': metadata,
-            })
+            kwargs.update(
+                {
+                    'metadata': metadata,
+                }
+            )
         return kwargs
 
     def get_device(self, **kwargs):
@@ -541,8 +546,9 @@ class SetupView(IdempotentSessionWizardView):
 
         if method == 'email':
             # kwargs['method'] = method
-            kwargs['address'] = self.storage.validated_step_data\
-                .get(method, {}).get('address')
+            kwargs['address'] = self.storage.validated_step_data.get(method, {}).get(
+                'address'
+            )
             return EmailDevice(key=self.get_key(method), **kwargs)
 
     def get_key(self, step):
@@ -560,9 +566,7 @@ class SetupView(IdempotentSessionWizardView):
             rawkey = unhexlify(key.encode('ascii'))
             b32key = b32encode(rawkey).decode('utf-8')
             self.request.session[self.session_key_name] = b32key
-            context.update({
-                'QR_URL': reverse(self.qrcode_url)
-            })
+            context.update({'QR_URL': reverse(self.qrcode_url)})
         elif self.steps.current == 'validation':
             context['device'] = self.get_device()
         # context['cancel_url'] = resolve_url(settings.LOGIN_REDIRECT_URL)
@@ -588,6 +592,7 @@ class BackupTokensView(FormView):
 
     A user can generate a number of static backup tokens. When the user cannot access email, these backup tokens can be used for verification.
     """
+
     form_class = Form
     success_url = 'two_factor:backup_tokens'
     template_name = 'two_factor/core/backup_tokens.html'
@@ -622,6 +627,7 @@ class EmailSetupView(IdempotentSessionWizardView):
     A user can have multiple backup :class:`~two_factor.models.EmailDevice`
     for receiving OTP tokens. If the primary address is not available backup addresses can be used for verification.
     """
+
     template_name = 'two_factor/core/email_register.html'
     success_url = settings.TWO_FACTOR_CANCEL_URL
     form_list = (
@@ -693,6 +699,7 @@ class EmailDeleteView(DeleteView):
     """
     View for removing an email address used for verification.
     """
+
     success_url = settings.TWO_FACTOR_CANCEL_URL
 
     def get_queryset(self):
@@ -708,6 +715,7 @@ class SetupCompleteView(TemplateView):
     """
     View congratulation the user when OTP setup has completed.
     """
+
     template_name = 'two_factor/core/setup_complete.html'
 
     def get_context_data(self):
@@ -722,6 +730,7 @@ class QRGeneratorView(View):
     """
     View returns an SVG image with the OTP token information
     """
+
     http_method_names = ['get']
     default_qr_factory = 'qrcode.image.svg.SvgPathImage'
     session_key_name = 'django_two_factor-qr_secret_key'
@@ -743,7 +752,9 @@ class QRGeneratorView(View):
             raise Http404()
 
         # Get data for qrcode
-        image_factory_string = getattr(settings, 'TWO_FACTOR_QR_FACTORY', self.default_qr_factory)
+        image_factory_string = getattr(
+            settings, 'TWO_FACTOR_QR_FACTORY', self.default_qr_factory
+        )
         image_factory = import_string(image_factory_string)
         content_type = self.image_content_types[image_factory.kind]
         try:
@@ -751,10 +762,12 @@ class QRGeneratorView(View):
         except AttributeError:
             username = self.request.user.username
 
-        otpauth_url = get_otpauth_url(accountname=username,
-                                      issuer=self.get_issuer(),
-                                      secret=key,
-                                      digits=totp_digits())
+        otpauth_url = get_otpauth_url(
+            accountname=username,
+            issuer=self.get_issuer(),
+            secret=key,
+            digits=totp_digits(),
+        )
 
         # Make and return QR code
         img = qrcode.make(otpauth_url, image_factory=image_factory)

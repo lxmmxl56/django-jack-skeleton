@@ -2,28 +2,24 @@ from binascii import unhexlify
 from time import time
 
 from django import forms
-from django.core.validators import validate_email
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.forms import Form, ModelForm
 from django.utils.translation import gettext_lazy as _
 from django_otp.forms import OTPAuthenticationFormMixin
 from django_otp.oath import totp
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
-from .models import (
-    EmailDevice, get_available_methods,
-)
+from .models import EmailDevice, get_available_methods
 from .utils import totp_digits
 
 
 class MethodForm(forms.Form):
 
     method = forms.ChoiceField(
-        label=_("Method"),
-        initial='generator',
-        widget=forms.RadioSelect
+        label=_("Method"), initial='generator', widget=forms.RadioSelect
     )
 
     def __init__(self, **kwargs):
@@ -37,16 +33,18 @@ class EmailForm(ModelForm):
         help_text=_('Please provide a valid email address'),
     )
 
-    address.widget.attrs.update({
-        'autofocus': 'autofocus',
-        'inputmode': 'email',
-        'autocomplete': 'email',
-        'size': '32',
-    })
+    address.widget.attrs.update(
+        {
+            'autofocus': 'autofocus',
+            'inputmode': 'email',
+            'autocomplete': 'email',
+            'size': '32',
+        }
+    )
 
     class Meta:
         model = EmailDevice
-        fields = 'address',
+        fields = ('address',)
 
     def __init__(self, user, **kwargs):
         super().__init__(**kwargs)
@@ -64,16 +62,18 @@ class BackupEmailForm(ModelForm):
         help_text=_('Please provide a valid email address'),
     )
 
-    address.widget.attrs.update({
-        'autofocus': 'autofocus',
-        'inputmode': 'email',
-        'autocomplete': 'email',
-        'size': '32',
-    })
+    address.widget.attrs.update(
+        {
+            'autofocus': 'autofocus',
+            'inputmode': 'email',
+            'autocomplete': 'email',
+            'size': '32',
+        }
+    )
 
     class Meta:
         model = EmailDevice
-        fields = 'address',
+        fields = ('address',)
 
     def __init__(self, user, **kwargs):
         super().__init__(**kwargs)
@@ -83,7 +83,10 @@ class BackupEmailForm(ModelForm):
 
     def clean_address(self):
         email = self.cleaned_data.get('address')
-        if email and (EmailDevice.objects.filter(address=email).exists() or (User.objects.filter(email=email).exists() and email != self.user.email)):
+        if email and (
+            EmailDevice.objects.filter(address=email).exists()
+            or (User.objects.filter(email=email).exists() and email != self.user.email)
+        ):
             raise ValidationError(
                 self.error_messages['email_exists'],
                 code='email_exists',
@@ -95,13 +98,15 @@ class BackupEmailForm(ModelForm):
 class DeviceValidationForm(forms.Form):
     token = forms.CharField(label=_("Token"))
 
-    token.widget.attrs.update({
-        'autofocus': 'autofocus',
-        'inputmode': 'numeric',
-        'pattern': '[0-9]*',
-        'autocomplete': 'one-time-code',
-        'size': '8',
-    })
+    token.widget.attrs.update(
+        {
+            'autofocus': 'autofocus',
+            'inputmode': 'numeric',
+            'pattern': '[0-9]*',
+            'autocomplete': 'one-time-code',
+            'size': '8',
+        }
+    )
     error_messages = {
         'invalid_token': _('Invalid token.'),
     }
@@ -121,12 +126,14 @@ class TOTPDeviceForm(forms.Form):
     token = forms.CharField(label=_("Token"))
 
     token.widget.attrs.update(
-        {'autofocus': 'autofocus',
-        'inputmode': 'numeric',
-        'pattern': '[0-9]*',
-        'autocomplete': 'one-time-code',
-        'size': '8',
-        })
+        {
+            'autofocus': 'autofocus',
+            'inputmode': 'numeric',
+            'pattern': '[0-9]*',
+            'autocomplete': 'one-time-code',
+            'size': '8',
+        }
+    )
 
     error_messages = {
         'invalid_token': _('Invalid token.'),
@@ -177,7 +184,7 @@ class TOTPDeviceForm(forms.Form):
             step=self.step,
             drift=self.drift,
             digits=self.digits,
-            name='default'
+            name='default',
         )
 
 
@@ -189,12 +196,14 @@ class AuthenticationTokenForm(OTPAuthenticationFormMixin, Form):
     otp_token = forms.CharField(label=_("Token"))
 
     otp_token.widget.attrs.update(
-        {'autofocus': 'autofocus',
-        'inputmode': 'numeric',
-        'pattern': '[0-9]*',
-        'autocomplete': 'one-time-code',
-        'size': '8',
-    })
+        {
+            'autofocus': 'autofocus',
+            'inputmode': 'numeric',
+            'pattern': '[0-9]*',
+            'autocomplete': 'one-time-code',
+            'size': '8',
+        }
+    )
 
     # Our authentication form has an additional submit button to go to the
     # backup token form. When the `required` attribute is set on an input
@@ -218,18 +227,22 @@ class AuthenticationTokenForm(OTPAuthenticationFormMixin, Form):
         if getattr(settings, 'TWO_FACTOR_REMEMBER_COOKIE_AGE', None):
             if settings.TWO_FACTOR_REMEMBER_COOKIE_AGE < 3600:
                 minutes = int(settings.TWO_FACTOR_REMEMBER_COOKIE_AGE / 60)
-                label = _("Don't ask again on this device for %(minutes)i minutes") % {'minutes': minutes}
+                label = _("Don't ask again on this device for %(minutes)i minutes") % {
+                    'minutes': minutes
+                }
             elif settings.TWO_FACTOR_REMEMBER_COOKIE_AGE < 3600 * 24:
                 hours = int(settings.TWO_FACTOR_REMEMBER_COOKIE_AGE / 3600)
-                label = _("Don't ask again on this device for %(hours)i hours") % {'hours': hours}
+                label = _("Don't ask again on this device for %(hours)i hours") % {
+                    'hours': hours
+                }
             else:
                 days = int(settings.TWO_FACTOR_REMEMBER_COOKIE_AGE / 3600 / 24)
-                label = _("Don't ask again on this device for %(days)i days") % {'days': days}
+                label = _("Don't ask again on this device for %(days)i days") % {
+                    'days': days
+                }
 
             self.fields['remember'] = forms.BooleanField(
-                required=False,
-                initial=True,
-                label=label
+                required=False, initial=True, label=label
             )
 
     def clean(self):

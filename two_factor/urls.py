@@ -1,8 +1,14 @@
 from django.urls import path
 
 from two_factor.views import (
-    BackupTokensView, DisableView, EmailDeleteView, EmailSetupView,
-    ProfileView, QRGeneratorView, SetupCompleteView, SetupView,
+    BackupTokensView,
+    DisableView,
+    EmailDeleteView,
+    EmailSetupView,
+    ProfileView,
+    QRGeneratorView,
+    SetupCompleteView,
+    SetupView,
 )
 
 core = [

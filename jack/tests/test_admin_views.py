@@ -19,31 +19,20 @@ class AdminViewsTests(TestCase):
     def setUp(self):
         # create a normal user
         self.nb = User.objects.create_user(
-            username=NB,
-            password=PW,
-            is_staff=False,
-            is_superuser=False
+            username=NB, password=PW, is_staff=False, is_superuser=False
         )
         # create a staff user with no permissions
         self.st = User.objects.create_user(
-            username=ST,
-            password=PW,
-            is_staff=True,
-            is_superuser=False
+            username=ST, password=PW, is_staff=True, is_superuser=False
         )
         # create a superuser
         self.su = User.objects.create_user(
-            username=SU,
-            password=PW,
-            is_staff=True,
-            is_superuser=True
+            username=SU, password=PW, is_staff=True, is_superuser=True
         )
-
 
     def tearDown(self):
         self.su.delete()
         self.nb.delete()
-
 
     # admin access tests
     def test_admin_index(self):

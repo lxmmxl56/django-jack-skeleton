@@ -14,6 +14,7 @@ class Command(BaseCommand):
 
         manage.py two_factor_disable bouke steve
     """
+
     help = 'Disables two-factor authentication for the given users'
 
     def add_arguments(self, parser):

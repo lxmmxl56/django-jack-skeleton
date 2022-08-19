@@ -12,11 +12,11 @@ register = template.Library()
 @register.filter
 def remove_language_codes(value):
     value = value[3:]
-    if '?next=/ja/' in value or '?next=/en/' in value :
+    if '?next=/ja/' in value or '?next=/en/' in value:
         next_index = value.find('?next=')
-        next_value = value[next_index+6:]
+        next_value = value[next_index + 6 :]
         new_next = next_value[3:]
-        value = value[:next_index+6] + new_next
+        value = value[: next_index + 6] + new_next
     return value
 
 

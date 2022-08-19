@@ -24,6 +24,7 @@ class ExtraSessionStorage(SessionStorage):
     SessionStorage that includes the property `validated_step_data` for storing
     cleaned form data per step.
     """
+
     validated_step_data_key = 'validated_step_data'
 
     def init_data(self):
@@ -42,8 +43,7 @@ class ExtraSessionStorage(SessionStorage):
     def _set_validated_step_data(self, validated_step_data):
         self.data[self.validated_step_data_key] = validated_step_data
 
-    validated_step_data = property(_get_validated_step_data,
-                                   _set_validated_step_data)
+    validated_step_data = property(_get_validated_step_data, _set_validated_step_data)
 
 
 class LoginStorage(ExtraSessionStorage):
@@ -51,6 +51,7 @@ class LoginStorage(ExtraSessionStorage):
     SessionStorage that includes the property 'authenticated_user' for storing
     backend authenticated users while logging in.
     """
+
     def _get_authenticated_user(self):
         # Ensure that both user_pk and user_backend exist in the session
         if not all([self.data.get("user_pk"), self.data.get("user_backend")]):
@@ -69,8 +70,7 @@ class LoginStorage(ExtraSessionStorage):
         self.data["user_pk"] = user._meta.pk.value_to_string(user)
         self.data["user_backend"] = user.backend
 
-    authenticated_user = property(_get_authenticated_user,
-                                  _set_authenticated_user)
+    authenticated_user = property(_get_authenticated_user, _set_authenticated_user)
 
 
 class IdempotentSessionWizardView(SessionWizardView):
@@ -78,6 +78,7 @@ class IdempotentSessionWizardView(SessionWizardView):
     WizardView that allows certain steps to be marked non-idempotent, in which
     case the form is only validated once and the cleaned values stored.
     """
+
     storage_name = 'two_factor.views.utils.ExtraSessionStorage'
     idempotent_dict = {}
 
@@ -86,8 +87,10 @@ class IdempotentSessionWizardView(SessionWizardView):
         Returns whether the given `step` should be included in the wizard; it
         is included if either the form is idempotent or not filled in before.
         """
-        return self.idempotent_dict.get(step, True) or \
-            step not in self.storage.validated_step_data
+        return (
+            self.idempotent_dict.get(step, True)
+            or step not in self.storage.validated_step_data
+        )
 
     def get_prev_step(self, step=None):
         """
@@ -128,9 +131,11 @@ class IdempotentSessionWizardView(SessionWizardView):
         conditions have changed.
         """
         if self.steps.current not in self.steps.all:
-            logger.warning("Current step '%s' is no longer valid, returning "
-                           "to last valid step in the wizard.",
-                           self.steps.current)
+            logger.warning(
+                "Current step '%s' is no longer valid, returning "
+                "to last valid step in the wizard.",
+                self.steps.current,
+            )
             return self.render_goto_step(self.steps.all[-1])
 
         # -- Duplicated code from upstream
@@ -144,11 +149,15 @@ class IdempotentSessionWizardView(SessionWizardView):
         # Check if form was refreshed
         management_form = ManagementForm(self.request.POST, prefix=self.prefix)
         if not management_form.is_valid():
-            raise SuspiciousOperation(_('ManagementForm data is missing or has been tampered with'))
+            raise SuspiciousOperation(
+                _('ManagementForm data is missing or has been tampered with')
+            )
 
         form_current_step = management_form.cleaned_data['current_step']
-        if (form_current_step != self.steps.current
-                and self.storage.current_step is not None):
+        if (
+            form_current_step != self.steps.current
+            and self.storage.current_step is not None
+        ):
             # form refreshed, change current step
             self.storage.current_step = form_current_step
         # -- End duplicated code from upstream
@@ -156,9 +165,11 @@ class IdempotentSessionWizardView(SessionWizardView):
         # This is different from the first check, as this checks
         # if the new step is available. See issue #65.
         if self.steps.current not in self.steps.all:
-            logger.warning("Requested step '%s' is no longer valid, returning "
-                           "to last valid step in the wizard.",
-                           self.steps.current)
+            logger.warning(
+                "Requested step '%s' is no longer valid, returning "
+                "to last valid step in the wizard.",
+                self.steps.current,
+            )
             return self.render_goto_step(self.steps.all[-1])
 
         return super().post(*args, **kwargs)
@@ -202,13 +213,13 @@ class IdempotentSessionWizardView(SessionWizardView):
         final_form_list = []
         # walk through the form list and try to validate the data again.
         for form_key in self.get_done_form_list():
-            form_obj = self.get_form(step=form_key,
-                                     data=self.storage.get_step_data(form_key),
-                                     files=self.storage.get_step_files(
-                                         form_key))
+            form_obj = self.get_form(
+                step=form_key,
+                data=self.storage.get_step_data(form_key),
+                files=self.storage.get_step_files(form_key),
+            )
             if not (form_key in self.idempotent_dict or form_obj.is_valid()):
-                return self.render_revalidation_failure(form_key, form_obj,
-                                                        **kwargs)
+                return self.render_revalidation_failure(form_key, form_obj, **kwargs)
             final_form_list.append(form_obj)
 
         # render the done view and reset the wizard before returning the
@@ -229,9 +240,11 @@ def class_view_decorator(function_decorator):
 
     From: http://stackoverflow.com/a/8429311/58107
     """
+
     def simple_decorator(View):
         View.dispatch = method_decorator(function_decorator)(View.dispatch)
         return View
+
     return simple_decorator
 
 
@@ -252,7 +265,9 @@ def get_remember_device_cookie(user, otp_device_id):
     cookie_key = hash_remember_device_cookie_key(otp_device_id)
     cookie_value = hash_remember_device_cookie_value(otp_device_id, user, timestamp)
 
-    cookie = remember_device_cookie_separator.join([timestamp, cookie_key, cookie_value])
+    cookie = remember_device_cookie_separator.join(
+        [timestamp, cookie_key, cookie_value]
+    )
     return cookie
 
 
@@ -264,7 +279,9 @@ def validate_remember_device_cookie(cookie, user, otp_device_id):
     Otherwise raises an exception.
     """
 
-    timestamp, input_cookie_key, input_cookie_value = cookie.split(remember_device_cookie_separator, 3)
+    timestamp, input_cookie_key, input_cookie_value = cookie.split(
+        remember_device_cookie_separator, 3
+    )
 
     cookie_key = hash_remember_device_cookie_key(otp_device_id)
     if input_cookie_key != cookie_key:
@@ -278,7 +295,8 @@ def validate_remember_device_cookie(cookie, user, otp_device_id):
     age = time.time() - timestamp_int
     if age > settings.TWO_FACTOR_REMEMBER_COOKIE_AGE:
         raise SignatureExpired(
-            'Signature age %s > %s seconds' % (age, settings.TWO_FACTOR_REMEMBER_COOKIE_AGE)
+            'Signature age %s > %s seconds'
+            % (age, settings.TWO_FACTOR_REMEMBER_COOKIE_AGE)
         )
 
     return True
